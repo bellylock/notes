@@ -1,0 +1,128 @@
+<!doctype html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>瀑布流</title>
+		
+		<style>
+			*{
+				margin:0;padding:0;
+			}
+			
+			div {
+				width:950px;
+				border:1px solid red;
+				margin:0 auto;
+				overflow:hidden;
+			}
+			
+			ul{
+				width:250px;
+				border:1px solid #f90;
+				float:left;
+				margin-left:40px;
+				margin-top:20px;
+			}
+			
+			li{
+				list-style:none;
+				border:1px solid #000;
+				margin:5px;
+			}
+		</style>
+		<script>
+			window.onload = function()
+			{
+				//获取所有的ul 
+				var aUl = document.getElementsByTagName('ul');
+				
+				//alert(aUl);
+				
+				var aTmp = [];
+				
+				for (var i=0;i<aUl.length;i++) {
+					aTmp.push(aUl[i]);
+				}
+				
+				
+				//alert(aTmp);
+				
+				//alert(aUl.length);
+				
+				createLi();
+				
+				
+				//获取可视区高度
+				var clientHeight = document.documentElement.clientHeight;
+				
+				//alert(clientHeight);
+				
+				window.onscroll = function()
+				{
+					//获取滚动距离
+					var srollTop = document.documentElement.scrollTop || document.body.scrollTop;
+					
+					//获取你的最大滚动距离
+					var scrollHeight = document.body.scrollHeight;
+					
+					//document.title = scrollHeight;
+					if (clientHeight + srollTop+10 >= scrollHeight) {
+						createLi();
+					}
+					
+					
+					
+				}
+				
+				
+				
+				function createLi()
+				{
+					for (var i=0;i<30;i++) {
+						//创建li元素
+						var oLi = document.createElement('li');
+						
+						//li 的高度是随机的 不是固定的
+						var oH = rand(50 , 200);
+						
+						oLi.style.height = oH+'px';
+						
+						oLi.innerHTML = i;
+						
+						oLi.style.fontSize = '30px';
+						
+						oLi.style.textAlign = 'center';
+						
+						oLi.style.lineHeight = oH+'px';
+						
+						//开始插入，往ul里面插入li
+						
+						
+						aTmp.sort(function(aUl1,aUl2){
+							return aUl1.offsetHeight - aUl2.offsetHeight;
+						});
+						
+						aTmp[0].appendChild(oLi);
+						
+					}
+				}
+				
+				//封装随机数
+				function rand(n , m)
+				{	
+					return parseInt(Math.random()*(m-n+1)+n);
+				}
+			}
+		</script>
+	
+	</head>
+	
+	<body>
+		<div>
+			<ul></ul>
+			<ul></ul>
+			<ul></ul>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://wximg.gtimg.com/shake_tv/include/js/lib/jquery.2.1.1.min.js"></script>
+</head>
+<body>
+<style type="text/css">
+    input {
+        width: 2%;
+        margin-top: 20%;
+        margin-left: -1px;
+    }
+</style>
+<div class="container">
+    <!-- input 框上的属性 -->
+    <!-- w3c 定义好的属性 -->
+    <!-- maxlength 最大输入限制 -->
+    <input type="text" maxlength="1" class="pay_password"/>
+    <input type="text" maxlength="1" class="pay_password"/>
+    <input type="text" maxlength="1" class="pay_password"/>
+    <input type="text" maxlength="1" class="pay_password"/>
+    <input type="text" maxlength="1" class="pay_password"/>
+    <input type="text" maxlength="1" class="pay_password"/>
+</div>
+<script type="text/javascript">
+    var inputIndex = 0;//记录input移入焦点位置
+    //支付密码输入框效果实现
+    $(function () {
+        $(".pay_password").on("input", function () {
+            //正则表达式 限定只能输入数字
+            // this.value = this.value.replace(/\D/g, '');
+            if (this.value == "") {//如果空字符串 则强制关闭方法
+                return;
+            }
+            //移出焦点方法
+            //$().blur()
+            if (inputIndex != 5) {
+                $(this).blur();
+                inputIndex++;
+            }
+            //focus()获取焦点
+            $($(".pay_password")[inputIndex]).focus();
+        });
+
+        //键盘事件
+        //keydown  当键盘按下触发
+        //keyup		当键盘按下并放开触发
+        $(".pay_password").on("keydown", function (event) {
+            if (event.keyCode == 8) {//这个按的就是退格键
+                console.log(inputIndex);
+                if (inputIndex == 6) {
+                    inputIndex--;
+
+                } else {
+                    $(this).blur();
+                    //$().val()  不带参数则为获取值
+                    //$().val("") 赋值
+                    $($(".pay_password")[inputIndex]).val("");
+                    $($(".pay_password")[inputIndex]).focus();
+                    if (inputIndex != 0) {
+                        inputIndex--;
+                    }
+
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

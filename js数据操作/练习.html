@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>小型服务器</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>	
+</head>
+<body>
+<button type="button" class="btn btn-primary" data-toggle="modal" id="insert">新增</button>
+<div class="input-group">
+  	<input type="text" class="form-control" id="searchText" aria-label="...">
+  	<div class="input-group-btn">
+    	<button type="button" class="btn btn-default" id="search">搜索</button>
+  	</div>
+</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>学号</th>
+				<th>姓名</th>
+				<th>年龄</th>
+				<th>成绩</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody id="tbody">
+			
+		</tbody>
+	</table>
+	<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">修改学生信息</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>学生姓名：</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="name"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>学生年龄：</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="age"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>学生成绩：</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="score"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="save">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	// var localStorage = window.localStorage;//获取storage数据e;
+ // 	localStorage.setItem("index",100);//设置数据
+ // 	var a = localStorage.getItem("index");//获取对应的key值数据
+ // 	localStorage.clear();//清除storage数据
+	var studentArray = [];
+	var flag = false;
+	$(function(){
+		$.get("data.json",{},function(data){
+			studentArray = data;
+			drawHtml();
+		});
+
+
+		$("#save").on("click",function(){
+        if(flag){ //如果为true则为新增操作
+            //新增操作则就是将页面上的数据 赋值给一个对象后并添加到数据中即可
+            var obj = {
+                name: $("#name").val(),
+                age: $("#age").val(),
+                score: $("#score").val(),
+            };
+            studentArray.push(obj);
+        }else{//否则为修改操作
+            var index = localStorage.getItem("index");
+            studentArray[index].name = $("#name").val();
+            studentArray[index].age = $("#age").val();
+            studentArray[index].score = $("#score").val();
+
+        }
+        $("#myModal").modal("hide");
+        drawHtml();
+    	});
+
+		$("#insert").on("click",function(){
+	         $("#myModal").modal("show");
+	         $("#myModalLabel").text("新增学生信息");
+	         flag = true;
+	    });
+
+	    $("#myModal").on("hidden.bs.modal",function(){
+        $("#name").val("");
+        $("#age").val("");
+        $("#score").val("");
+    	});
+
+	    $("#search").on("click",function(){
+	        //获取到要搜索的数据
+	        var text = $("#searchText").val();
+	        var searchArray = [];//定义一个记录搜索数据的数组
+	        for(var i = 0 ; i < studentArray.length ; i++){
+	            //如果找到的下标不为-1的情况下 则证明找到了数据
+	            if(studentArray[i].name.indexOf(text) != -1){
+	                searchArray.push(studentArray[i]);
+	            }
+	        }
+	        drawHtml(searchArray);
+	    });
+
+
+		function drawHtml(array){
+			var tempArray =  array == undefined ? studentArray : array;
+        	var str = "";//定义好拼接的变量字符串
+        	for(var i = 0 ; i < tempArray.length ; i++){
+            //字符串拼接 用+拼接
+            //在双引号字符串中如果要输入字符串不能在出现双引号
+            //只能用单引号\
+            //老写法
+            // str += "<tr><td>"+ (i+1) +"</td>" +
+            // "<td>"+ data[i].name +"</td>" +
+            // "<td>"+ data[i].age +"</td>" +
+            // "<td>"+ data[i].score +"</td>" +
+            // "<td><button class='btn btn-default'>删除</button></td>" +
+            // "</tr>";
+            // es6 写法 ${变量名称 或 数学逻辑表达式} 占位符
+            // 实现删除方式 第一种 原生js
+            str += `<tr>
+            <td>${i+1}</td>
+            <td>${tempArray[i].name}</td>
+            <td>${tempArray[i].age}</td>
+            <td>${tempArray[i].score}</td>
+            //因为是在循环拼接字符串 所以直接增加自定义属性index 后面跟上循环变量i 即可知道下标
+            <td>
+            <button class='btn btn-default editDataBtn' index=${i}>修改</button>
+            <button class='btn btn-default deleteBtn' index=${i}>删除</button>
+            </td>
+
+            </tr>`;
+
+        	}
+        	$("#tbody").html(str);
+
+        	$(".editDataBtn").on("click",function(){
+            //事件回调内要做的事
+            //1.弹出modal
+            //2.获取到点击的这一行数据 如 姓名 年龄 成绩
+            //3.赋值到modal内对应的input内
+            //4.点击保存 则刷新当前行的内容
+            $("#myModal").modal("show");
+            index = $(this).attr('index');//获取下标 当js识别到没有带var 则会自动转换为全局变量
+            //如果key存在 则不会创建新的存储空间 浏览器会默认为替换原有value值
+            localStorage.setItem("index",index);
+            $("#name").val(studentArray[index].name);
+            $("#age").val(studentArray[index].age);
+            $("#score").val(studentArray[index].score);
+            $("#myModalLabel").text("修改学生信息");
+            flag = false;
+        	});
+
+        	$(".deleteBtn").on("click",function(){
+            var index = $(this).attr("index");
+            studentArray.splice(index,1);
+            drawHtml();
+        	});
+
+		};
+			
+		})
+</script>
+</body>
+</html>

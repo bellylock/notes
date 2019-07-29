@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+	<div id="box3">
+		<div id="child_box3">1</div>
+		<span id="child_span3">2</span>
+		<p class="child_p">321</p>
+		<p class="child_p">4</p>
+	</div>
+	<div id="a"></div>
+	<script type="text/javascript">
+		$(function(){
+			//.children() 找到节点下的所有子节点
+			//.children("id class 标签") 从子节点中固定的找到某个需要找到的节点
+			//console.log($("#box3").children(".child_p"));
+			//.parent() 找到该节点的父节点
+			// console.log($(".child_p").parent());
+			// siblings() 同级节点 都可以填写一个参数 去找到固定的节点值
+			// console.log($("#child_span3").siblings(".child_p"));
+			// 在jQuery上 如果判断有没有找到对应的节点
+			// $("").length 如果length为0则证明并没有找到对应的节点
+			// console.log($("#a").length);
+			// console.log($("#box3 > .child_p"));
+			// 
+			//.remove() 将整个渲染完毕的节点从页面上彻底移出
+			// $("#box3").remove();
+			//el: "#app"
+			var div = document.createElement("div");
+			
+			div.id = "asd";//给他设置id属性
+			div.className = "zzz";//给他设置class属性
+			//.text();
+			div.innerText = "sjqiushfheyuf";
+			div.innerHTML = "<h1>14</h1>";
+			console.log(div);
+
+			$("body").append(div);
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    var myDate = new Date();
+
+    var year = myDate.getYear(); //获取当前年份(2位)
+    var time = myDate.getTime(); //获取当前时间(从1970.1.1开始的毫秒数)
+    var secs = myDate.getMilliseconds(); //获取当前毫秒数(0-999)
+
+
+    var fullyear = myDate.getFullYear(); //获取完整的年份(4位,1970)   年
+    var month = myDate.getMonth(); //获取当前月份(0-11,0代表1月)      月
+    var date = myDate.getDate(); //获取当前日(1-31)                   日
+    var day = myDate.getDay(); //获取当前星期X(0-6,0代表星期天)       周几
+
+
+    var hour = myDate.getHours(); //获取当前小时数(0-23)              小时
+    var minute = myDate.getMinutes(); //获取当前分钟数(0-59)          分钟
+    var second = myDate.getSeconds(); //获取当前秒数(0-59)             秒
+
+    var dates = fullyear + '年' + (month + 1) + '月' + date + '日' + '星期' + day;
+    var time = hour + ':' + minute + ':' + second;
+
+
+    var cur = myDate.toLocaleDateString(); //获取当前日期    -----年/月/日
+    var mydate = myDate.toLocaleString( ); //获取日期与时间    -----年/月/日  上下午00:00:00
+    var mytime=myDate.toLocaleTimeString(); //获取当前时间   --- 上下午00:00:00
+
+    document.write(mydate + "<br /><br /><br />" + dates + '---' + time);
+    console.log(mydate);
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>瀑布流</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            width: 950px;
+            border: 1px solid red;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        ul{
+            width: 250px;
+            border: 1px solid #f90;
+            float: left;
+            margin-left: 40px;
+            margin-top: 50px;
+        }
+        li{
+            list-style: none;
+            border: 1px solid #000;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+    </div>
+    <script>
+        window.onload = function(){
+            var aUl = document.getElementsByTagName("ul");
+            // var oLi = document.createElement('li');
+            var aTmp = [];
+            for( var i = 0; i < aUl.length; i++){
+                aTmp.push(aUl[i]);
+            }
+
+            aTmp.sort(function(aUl1,aUl2){
+                return aUl1.offsetHeight - aUl2.offsetHeight
+            });
+
+
+
+            // aTmp[0].appendChild(oLi);
+            asd();
+
+            var clientHeight = document.documentElement.clientHeight;
+            // alert(clientHeight);
+
+            window.onscroll = function(){
+
+                //获取滚动距离
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                //获取你的最大的滚动距离
+                var scrollHeight = document.body.scrollHeight;
+
+                // console.log( scrollTop + "--" + scrollHeight)
+
+                if(clientHeight + scrollTop + 5 >= scrollHeight){
+                    asd();
+                    console.log(111)
+                }
+
+            }
+
+            function asd(){
+                for( var i = 0; i < 30; i++){
+                    var oLi = document.createElement('li');
+                    var oH = rand(100,300);
+                    oLi.style.height = oH + "px";
+                    oLi.innerHTML = i;
+                    oLi.style.fontSize = "30px";
+                    oLi.style.textAlign = "center";
+                    oLi.style.lineHeight = oH + 'px';
+                    //往ul里面插入li
+                    if(aUl[0].offsetHeight > aUl[1].offsetHeight){
+
+                        if( aUl[1].offsetHeight > aUl[2].offsetHeight ){
+                            aUl[2].appendChild(oLi);
+                        }else{
+                            aUl[1].appendChild(oLi);
+                        }
+                    }else{
+                        if(aUl[0].offsetHeight > aUl[2].offsetHeight){
+                            aUl[2].appendChild(oLi);
+                        }else{
+                            aUl[0].appendChild(oLi);
+                        }
+                    }
+                }
+            }
+
+            // for( var i = 0; i < 30; i++){
+            //     var oLi = document.createElement('li');
+            //     var oH = rand(100,300);
+            //     oLi.style.height = oH + "px";
+            //     oLi.innerHTML = i;
+            //     oLi.style.fontSize = "30px";
+            //     oLi.style.textAlign = "center";
+            //     oLi.style.lineHeight = oH + 'px';
+            //     //往ul里面插入li
+            //     if(aUl[0].offsetHeight > aUl[1].offsetHeight){
+            //
+            //         if( aUl[1].offsetHeight > aUl[2].offsetHeight ){
+            //             aUl[2].appendChild(oLi);
+            //         }else{
+            //             aUl[1].appendChild(oLi);
+            //         }
+            //     }else{
+            //         if(aUl[0].offsetHeight > aUl[2].offsetHeight){
+            //             aUl[2].appendChild(oLi);
+            //         }else{
+            //             aUl[0].appendChild(oLi);
+            //         }
+            //     }
+            // }
+            //封装随机数
+            function rand(n,m){
+                return parseInt(Math.random() * (m-n+1) + n)
+            }
+        }
+    </script>
+
+    <script>
+        var arr = [1,52,63,86,45,63];
+        arr.sort(function(a,b){
+            return a - b
+        });
+        // alert(arr)
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>球体效果</title>
+    <style>
+        body {
+            width: 300px;
+            margin: 100px auto;
+        }
+        /*ball 第一个球*/
+        .ball1 {
+            display: block;
+            background: black;
+            border-radius: 100%;
+            height: 300px;
+            width: 300px;
+            margin: 0 auto 100px auto;
+            background: radial-gradient(circle at 100px 100px, #5cabff, #000);
+        }
+
+        /*ball 第二个球*/
+        .ball2 {
+            display: block;
+            background: black;
+            margin: 0;
+            border-radius: 50%;
+            height: 300px;
+            width: 300px;
+            background: radial-gradient(circle at 100px 100px, #5cabff, #000);
+        }
+        .ball2 .shadow2 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
+            -webkit-transform: rotateX(90deg) translateZ(-150px);
+            -moz-transform: rotateX(90deg) translateZ(-150px);
+            -ms-transform: rotateX(90deg) translateZ(-150px);
+            -o-transform: rotateX(90deg) translateZ(-150px);
+            transform: rotateX(90deg) translateZ(-150px);
+            z-index: -1;
+        }
+        .stage2 {
+            width: 300px;
+            height: 300px;
+            margin: 50px auto;
+            -webkit-perspective: 1200px;
+            -moz-perspective: 1200px;
+            -ms-perspective: 1200px;
+            -o-perspective: 1200px;
+            perspective: 1200px;
+            -webkit-perspective-origin: 50% 50%;
+            -moz-perspective-origin: 50% 50%;
+            -ms-perspective-origin: 50% 50%;
+            -o-perspective-origin: 50% 50%;
+            perspective-origin: 50% 50%;
+        }
+
+        /*ball 第三个球*/
+        .ball3 {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle at 50% 120%, #81e8f6, #76deef 10%, #055194 80%, #062745 100%);
+        }
+        .ball3:before {
+            content: "";
+            position: absolute;
+            top: 1%;
+            left: 5%;
+            width: 90%;
+            height: 90%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 0px, #ffffff, rgba(255, 255, 255, 0) 58%);
+            -webkit-filter: blur(5px);
+            z-index: 2;
+        }
+
+        .ball3 .shadow3 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
+            -webkit-transform: rotateX(90deg) translateZ(-150px);
+            -moz-transform: rotateX(90deg) translateZ(-150px);
+            -ms-transform: rotateX(90deg) translateZ(-150px);
+            -o-transform: rotateX(90deg) translateZ(-150px);
+            transform: rotateX(90deg) translateZ(-150px);
+            z-index: -1;
+        }
+        .stage3 {
+            width: 300px;
+            height: 300px;
+            margin: 50px auto;
+            display: inline-block;
+            -webkit-perspective: 1200px;
+            -moz-perspective: 1200px;
+            -ms-perspective: 1200px;
+            -o-perspective: 1200px;
+            perspective: 1200px;
+            -webkit-perspective-origin: 50% 50%;
+            -moz-perspective-origin: 50% 50%;
+            -ms-perspective-origin: 50% 50%;
+            -o-perspective-origin: 50% 50%;
+            perspective-origin: 50% 50%;
+        }
+
+        /*ball 第四个球*/
+        .ball4 {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle at 50% 120%,  #323232, #0a0a0a 80%, #000000 100%);
+        }
+        .ball4:before {
+            content: "";
+            position: absolute;
+            background: radial-gradient(circle at 50% 120%,  rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            bottom: 2.5%;
+            left: 5%;
+            opacity: 0.6;
+            height: 100%;
+            width: 90%;
+            -webkit-filter: blur(5px);
+            z-index: 2;
+        }
+        .ball4:after {
+            width: 100%;
+            height: 100%;
+            content: "";
+            position: absolute;
+            top: 5%;
+            left: 10%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 50%,  rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8) 14%, rgba(255, 255, 255, 0) 24%);
+            -webkit-transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            -moz-transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            -ms-transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            -o-transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            -webkit-filter: blur(10px);
+        }
+
+        .ball4 .shadow4 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
+            -webkit-transform: rotateX(90deg) translateZ(-150px);
+            -moz-transform: rotateX(90deg) translateZ(-150px);
+            -ms-transform: rotateX(90deg) translateZ(-150px);
+            -o-transform: rotateX(90deg) translateZ(-150px);
+            transform: rotateX(90deg) translateZ(-150px);
+            z-index: -1;
+        }
+        .stage4 {
+            width: 300px;
+            height: 300px;
+            display: inline-block;
+            margin: 50px auto;
+            -webkit-perspective: 1200px;
+            -moz-perspective: 1200px;
+            -ms-perspective: 1200px;
+            -o-perspective: 1200px;
+            perspective: 1200px;
+            -webkit-perspective-origin: 50% 50%;
+            -moz-perspective-origin: 50% 50%;
+            -ms-perspective-origin: 50% 50%;
+            -o-perspective-origin: 50% 50%;
+            perspective-origin: 50% 50%;
+        }
+
+        /*ball 第五个球*/
+        .ball5 {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle at 50% 120%, #323232, #0a0a0a 80%, #000000 100%);
+        }
+        .ball5:before {
+            content: "";
+            position: absolute;
+            background: radial-gradient(circle at 50% 120%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            bottom: 2.5%;
+            left: 5%;
+            opacity: 0.6;
+            height: 100%;
+            width: 90%;
+            -webkit-filter: blur(5px);
+            z-index: 2;
+        }
+        .ball5:after {
+            width: 100%;
+            height: 100%;
+            content: "";
+            position: absolute;
+            top: 5%;
+            left: 10%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8) 14%, rgba(255, 255, 255, 0) 24%);
+            -webkit-transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            -moz-transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            -ms-transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            -o-transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            -webkit-filter: blur(10px);
+        }
+        .ball5 .eight {
+            width: 110px;
+            height: 110px;
+            margin: 30%;
+            background: white;
+            border-radius: 50%;
+            -webkit-transform: translateX(68px) translateY(-60px) skewX(15deg) skewY(2deg);
+            -moz-transform: translateX(68px) translateY(-60px) skewX(15deg) skewY(2deg);
+            -ms-transform: translateX(68px) translateY(-60px) skewX(15deg) skewY(2deg);
+            -o-transform: translateX(68px) translateY(-60px) skewX(15deg) skewY(2deg);
+            transform: translateX(68px) translateY(-60px) skewX(15deg) skewY(2deg);
+            position: absolute;
+        }
+        .ball5 .eight:before {
+            content: "8";
+            display: block;
+            position: absolute;
+            text-align: center;
+            height: 80px;
+            width: 100px;
+            left: 50px;
+            margin-left: -40px;
+            top: 44px;
+            margin-top: -40px;
+            color: black;
+            font-family: Arial;
+            font-size: 90px;
+            line-height: 104px;
+        }
+
+        .ball5 .shadow5 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
+            -webkit-transform: rotateX(90deg) translateZ(-150px);
+            -moz-transform: rotateX(90deg) translateZ(-150px);
+            -ms-transform: rotateX(90deg) translateZ(-150px);
+            -o-transform: rotateX(90deg) translateZ(-150px);
+            transform: rotateX(90deg) translateZ(-150px);
+            z-index: -1;
+        }
+        .stage5 {
+            width: 300px;
+            height: 300px;
+            display: inline-block;
+            margin: 50px auto;
+            -webkit-perspective: 1200px;
+            -moz-perspective: 1200px;
+            -ms-perspective: 1200px;
+            -o-perspective: 1200px;
+            perspective: 1200px;
+            -webkit-perspective-origin: 50% 50%;
+            -moz-perspective-origin: 50% 50%;
+            -ms-perspective-origin: 50% 50%;
+            -o-perspective-origin: 50% 50%;
+            perspective-origin: 50% 50%;
+        }
+
+        /*ball 第六个球*/
+        .ball6 {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle at 50% 40%, #fcfcfc, #efeff1 66%, #9b5050 100%);
+        }
+        .ball6:after {
+            content: "";
+            position: absolute;
+            top: 5%;
+            left: 10%;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8) 14%, rgba(255, 255, 255, 0) 24%);
+            -webkit-transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            -moz-transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            -ms-transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            -o-transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+            transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+        }
+
+        .iris6 {
+            width: 40%;
+            height: 40%;
+            margin: 30%;
+            border-radius: 100%;
+            background: radial-gradient(circle at 50% 50%, #208ab4 0%, #6fbfff 30%, #4381b2 100%);
+            -webkit-transform: translateX(68px) translateY(-60px) skewX(15deg) skewY(2deg);
+            -moz-transform: translateX(68px) translateY(-60px) skewX(15deg) skewY(2deg);
+            -ms-transform: translateX(68px) translateY(-60px) skewX(15deg) skewY(2deg);
+            -o-transform: translateX(68px) translateY(-60px) skewX(15deg) skewY(2deg);
+            transform: translateX(68px) translateY(-60px) skewX(15deg) skewY(2deg);
+            position: absolute;
+        }
+        .iris6:before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 37.5%;
+            height: 37.5%;
+            border-radius: 100%;
+            top: 31.25%;
+            left: 31.25%;
+            background: black;
+        }
+        .iris6:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 31.25%;
+            height: 31.25%;
+            border-radius: 100%;
+            top: 18.75%;
+            left: 18.75%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .ball6 .shadow6 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
+            -webkit-transform: rotateX(90deg) translateZ(-150px);
+            -moz-transform: rotateX(90deg) translateZ(-150px);
+            -ms-transform: rotateX(90deg) translateZ(-150px);
+            -o-transform: rotateX(90deg) translateZ(-150px);
+            transform: rotateX(90deg) translateZ(-150px);
+            z-index: -1;
+        }
+        .stage6 {
+            width: 300px;
+            height: 300px;
+            display: inline-block;
+            margin: 50px auto;
+            -webkit-perspective: 1200px;
+            -moz-perspective: 1200px;
+            -ms-perspective: 1200px;
+            -o-perspective: 1200px;
+            perspective: 1200px;
+            -webkit-perspective-origin: 50% 50%;
+            -moz-perspective-origin: 50% 50%;
+            -ms-perspective-origin: 50% 50%;
+            -o-perspective-origin: 50% 50%;
+            perspective-origin: 50% 50%;
+        }
+
+        /*ball 第七个球*/
+        @keyframes move-eye-skew {
+            0% {
+                transform: none;
+            }
+            20% {
+                transform: translateX(-68px) translateY(30px) skewX(15deg) skewY(-10deg) scale(0.95);
+            }
+            25%, 44% {
+                transform: none;
+            }
+            50%, 60% {
+                transform: translateX(68px) translateY(-40px) skewX(5deg) skewY(2deg) scaleX(0.95);
+            }
+            66%, 100% {
+                transform: none;
+            }
+        }
+
+        .ball7 {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle at 50% 40%, #fcfcfc, #efeff1 66%, #9b5050 100%);
+        }
+        .ball7:after {
+            content: "";
+            position: absolute;
+            top: 5%;
+            left: 10%;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8) 14%, rgba(255, 255, 255, 0) 24%);
+            transform: translateX(-80px) translateY(-90px) skewX(-20deg);
+        }
+
+        .iris7 {
+            width: 40%;
+            height: 40%;
+            margin: 30%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 50%, #208ab4 0%, #6fbfff 30%, #4381b2 100%);
+            transform: translateX(68px) translateY(-60px) skewX(15deg) skewY(2deg);
+            position: absolute;
+            animation: move-eye-skew 5s ease-out infinite;
+        }
+        .iris7:before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 37.5%;
+            height: 37.5%;
+            border-radius: 50%;
+            top: 31.25%;
+            left: 31.25%;
+            background: black;
+        }
+        .iris7:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 31.25%;
+            height: 31.25%;
+            border-radius: 50%;
+            top: 18.75%;
+            left: 18.75%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .ball7 .shadow7 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
+            transform: rotateX(90deg) translateZ(-150px);
+            z-index: -1;
+        }
+        .stage7 {
+            width: 300px;
+            height: 300px;
+            display: inline-block;
+            margin: 50px auto;
+            perspective: 1200px;
+            perspective-origin: 50% 50%;
+            transform-style: preserve-3d;
+            transform: rotateY(0.01deg);
+        }
+    </style>
+</head>
+<body>
+    <!--第一个球-->
+    <figure class="ball1"></figure>
+
+    <!--第二个球-->
+    <section class="stage2">
+        <figure class="ball2"><span class="shadow2"></span></figure>
+    </section>
+
+    <!--第三个球-->
+    <section class="stage3">
+        <figure class="ball3"><span class="shadow3"></span></figure>
+    </section>
+
+    <!--第四个球-->
+    <section class="stage4">
+        <figure class="ball4"><span class="shadow4"></span></figure>
+    </section>
+
+    <!--第五个球-->
+    <section class="stage5">
+        <figure class="ball5">
+            <span class="shadow5"></span>
+            <span class="eight"></span>
+        </figure>
+    </section>
+
+    <!--第六个球-->
+    <section class="stage6">
+        <figure class="ball6">
+            <span class="shadow6"></span>
+            <span class="iris6"></span>
+        </figure>
+    </section>
+
+    <!--第七个球-->
+    <section class="stage7">
+        <figure class="ball7">
+            <span class="shadow7"></span>
+            <span class="iris7"></span>
+        </figure>
+    </section>
+</body>
+</html>

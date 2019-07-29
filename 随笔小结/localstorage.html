@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>localstorage</title>
+</head>
+<body>
+<div class="box">box</div>
+<span id="btn">给bxo添加json中的name</span>
+
+<hr />
+<h2 class="add_data">添加数据给pass页面</h2>
+<a href="localstorage_pass.html">跳转到pass页面</a>
+<p class="name">仙尊大盗</p>
+<p class="age">25</p>
+<p class="sex">男</p>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script>
+    // 判断该浏览器是否支持localstorage
+    // if(typeof(Storage)!=="undefined")
+    // {
+    //     // 是的! 支持 localStorage  sessionStorage 对象!
+    //     console.log("支持")
+    // } else {
+    //     // 抱歉! 不支持 web 存储。
+    //     console.log("不支持")
+    // }
+
+
+    var storage = window.localStorage;
+    // 本页面获取本页面的json数据
+    var obj = {
+        name:"howard",
+        age:24
+    };
+    var str = JSON.stringify(obj);
+    storage.setItem("arr",str);
+    var get = storage.getItem("arr");
+    var pass = JSON.parse(get);
+    document.getElementById("btn").onclick = function(){
+        document.querySelector(".box").innerHTML = pass.name + "--" + pass.age
+    };
+
+    // 传递给其他页面json数据
+    $(".add_data").click(function(){
+        var give = storage.getItem("list");
+        if( give == null ){
+            var array = [];
+            var obj = {
+                a:$(".name").text(),
+                b:$(".age").text(),
+                c:$(".sex").text()
+            };
+            array.push(obj);
+            var arr = JSON.stringify(array);
+            storage.setItem("list",arr);
+        }else{
+            var give = JSON.parse(give);
+            var obj = {
+                a:$(".name").text(),
+                b:$(".age").text(),
+                c:$(".sex").text()
+            };
+            give.push(obj);
+            var tem = JSON.stringify(give);
+            storage.setItem("list",tem)
+        }
+    })
+
+
+</script>
+</body>
+</html>

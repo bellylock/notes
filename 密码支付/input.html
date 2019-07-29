@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>密码支付</title>
+    <script src="https://wximg.gtimg.com/shake_tv/include/js/lib/jquery.2.1.1.min.js"></script>
+</head>
+<body>
+<style type="text/css">
+    input {
+        width: 50px;
+        margin-left: -1px;
+    }
+</style>
+<div class="container">
+    <!-- input 框上的属性 -->
+    <!-- w3c 定义好的属性 -->
+    <!-- maxlength 最大输入限制 -->
+
+    <input type="text" index="1" maxlength="1" class="pay_password" />
+    <input type="text" index="2" maxlength="1" class="pay_password" />
+    <input type="text" index="3" maxlength="1" class="pay_password" />
+    <input type="text" index="4" maxlength="1" class="pay_password" />
+    <input type="text" index="5" maxlength="1" class="pay_password" />
+    <input type="text" index="6" maxlength="1" class="pay_password" />
+    <input type="text" index="7" maxlength="1" class="pay_password" />
+    <input type="text" index="8" maxlength="1" class="pay_password" />
+    <input type="text" index="9" maxlength="1" class="pay_password" />
+</div>
+<script>
+    $(function(){
+        var inputIndex = 0;
+        $(".pay_password").on("input",function(event){
+            if($(this).val() == ""){
+                return;
+            }
+            // inputIndex = $(this).attr('index');
+            if(inputIndex != 8){
+                $(this).blur();
+                inputIndex++;
+            }
+            // if(inputIndex == 9){
+            //     $(this).blur();
+            //     inputIndex = 9;
+            //     return
+            // }
+            // $(".pay_password").eq(inputIndex).focus()
+            $($(".pay_password")[inputIndex]).focus()
+
+        });
+
+        $(".pay_password").on("keydown",function(event){
+            if(event.keyCode == 8){
+
+                // if(inputIndex <= 9 && inputIndex >= 1){
+                //     $(this).blur();
+                //     inputIndex--;
+                //     $(".pay_password").eq(inputIndex).val("");
+                //     $(".pay_password").eq(inputIndex-1).focus()
+                // }else{
+                //     $(".pay_password").eq(0).focus()
+                // }
+                if(inputIndex == 9){
+                    inputIndex--
+                }else{
+                    $(this).blur();
+                    $(".pay_password").eq(inputIndex).val("");
+                    $(".pay_password").eq(inputIndex).focus();
+                    if(inputIndex != 0){
+                        inputIndex--
+                    }
+                    // else{
+                    //     $(this).focus()
+                    // }
+                }
+
+            }
+        });
+    })
+</script>
+</body>
+</html>

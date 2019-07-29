@@ -1,0 +1,13 @@
+<script>
+    var str = "可以用详细代码解决吗？急需，谢谢!";
+    var subStr = getSubStr(str);
+    console.log(subStr);
+    function getSubStr (str){
+        //var str = "可以用详细代码解决吗？急需，谢谢!";
+        var subStr1 = str.substr(0,5);   //从第1个开始取5个  -- 可以用详细
+        var subStr11 = str.substring(1,5);   //从第2个开始到第5个 -- 以用详细
+        var subStr2 = str.substr(str.length-5,5);
+        var subStr = subStr1 + "****" + subStr2 ;
+        return subStr;
+    }
+</script>

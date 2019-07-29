@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>javascript</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            padding: 15px;
+        }
+        .on{
+            color: #dc0201;
+            border: 1px solid #dc0201;
+            line-height: 34px;
+        }
+        #top{
+            font-size: 18px;
+            color: #dc0201;
+            background-color: orange;
+        }
+    </style>
+    <script src="../../1进阶课/视频和讲义/懒加载及闭包的使用/2018-10-24数据交互及闭包/server-run.js"></script>
+</head>
+<body>
+    <p>
+        es6  vue-cli(node.js  webpack)  模块分配（公共模块，私有模块）  打包
+    </p>
+    <h1>1</h1>
+    <div id="damn" data="data">点击damn查看console</div>
+    <p id="top">top</p>
+    <p id="test">test</p>
+
+    <br />
+    <h1>2</h1>
+    <p id="cli">点击确认弹出框</p>
+    <p id="btn"></p>
+
+    <br />
+    <h1>3. hover pic</h1>
+    <p class="pic">pic1</p>
+    <p class="pic">pic2</p>
+    <p class="pic">pic3</p>
+
+    <br />
+    <h1>4</h1>
+    <p id="add">添加移除class</p>
+
+    <br />
+    <h1>5</h1>
+    <p>请输入英文字符：<input type="text" onchange="toUpper(this)">
+    <p>当您离开输入字段时，会触发将输入文本转换为大写的函数。</p>
+    <p>请输入英文字符：<input type="text" onchange="tolower(this)">
+    <p>当您离开输入字段时，会触发将输入文本转换为小写的函数。</p>
+
+    <br />
+    <h1>6</h1>
+    <p class="mousebtn" onmousedown="mouseDown(this)" onmouseup="mouseUp(this)">按下鼠标（松开鼠标和不松效果不一样）</p>
+
+    <br />
+    <h1>7</h1>
+    <p>input输入改变字体颜色和大写，获得焦点时改变背景颜色，失去焦点时改变背景颜色</p>
+    <input type="text" oninput="input(this)" onfocus="changeBgColor(this,true)" onblur="changeBgColor(this,false)">
+
+    <br />
+    <h1>8</h1>
+    <p onmouseenter="enter(this)" onmouseleave="leave(this)">鼠标移入移出</p>
+    <!--<p id="enter">鼠标移入移出</p>-->
+
+    <br />
+    <h1>9.  keydown, keyup</h1>
+    <input type="text" id="name" onkeydown="myKeyDown(this.id)" onkeyup="myKeyUp(this.id)">
+
+    <br />
+    <h1>10</h1>
+    <p id="day" onclick="day()">点击获取今天星期几</p>
+
+    <br />
+    <h1>11</h1>
+    <p onclick="msg()">点击查看 try catch语句</p>
+
+    <br />
+    <h1>12</h1>
+    <p id="range" style="width: 100%;height: 300px;text-align: center;line-height: 300px;font-size: 24px;color: #dc0201;border: 1px solid red;">鼠标在该范围内移动，获取在该范围内的鼠标坐标</p>
+    <p style="border: 1px solid #000;height: 40px;font-size:15px;" id="location">坐标显示</p>
+
+    <br />
+    <h1>13</h1>
+    <p id="obj" style="background-color: pink;height: 40px;width: 200px;margin-left: 200px;margin-top: 100px;"></p>
+
+    <div style="background-color: orange;width: 100%;height: 400px;" >
+        <span id="box" style="display: inline-block;margin-left: 100px;color: #fff;font-size: 15px;">内容123456789</span>
+    </div>
+
+    <script>
+        var h = document.getElementById("box").offsetLeft;
+        // alert(h);
+
+        // 鼠标移入移出
+        function enter(e){
+            e.style.cssText = "color:orange;border:1px solid orange;"
+        }
+        function leave(e){
+            e.style.cssText = "color:red;border:1px solid red;"
+        }
+
+        // 等价于下面的写法
+        <!--
+            window.onload = function(){
+                document.getElementById("enter").onmouseenter = function(){
+                    this.style.cssText = "color:orange;border:1px solid orange;"
+                };
+                document.getElementById("enter").onmouseleave = function(){
+                    this.style.color = "orange";
+                    this.style.cssText = "color:red;border:1px solid red;"
+                };
+            }
+        -->
+
+        //鼠标按下 抬起
+        document.querySelector(".mousebtn").style.cursor = "pointer";
+        function mouseUp(ele){
+            ele.innerText = "鼠标已抬起";
+            ele.style.color = "blue"
+        }
+        function mouseDown(ele){
+            ele.innerText = "鼠标已按下";
+            ele.style.color = "red"
+        }
+
+        //input输入时 ，获取焦点时 ， 失去焦点时
+        function input(ele){
+            ele.style.color = "white";
+            ele.value = ele.value.toUpperCase()
+        }
+        function changeBgColor(ele,hasFocus){
+            if( hasFocus){
+                ele.style.backgroundColor = "pink"
+            }else{
+                ele.style.backgroundColor = "orange"
+            }
+        }
+
+        //键盘事件
+        // keydown：按键按下
+        // keyup：按键抬起
+        // keypress：按键按下抬起
+        function myKeyDown(id){
+            console.log(document.getElementById(id).value)
+        }
+        function myKeyUp(id){
+            var text = document.getElementById(id).value;
+            document.getElementById(id).value = text.toUpperCase();
+        }
+
+        //字母转换为大写
+        function toUpper(ele){
+            ele.value = ele.value.toUpperCase();
+        }
+
+        //字母转换为小写
+        function tolower(ele){
+            ele.value = ele.value.toLowerCase()
+        }
+
+        // switch 获取星期几
+        function day(){
+            var day;
+            switch( new Date().getDay() ){
+                case 0:
+                    day = "星期日";
+                    break;
+                case 1:
+                    day = "星期一";
+                    break;
+                case 2:
+                    day = "星期二";
+                    break;
+                case 3:
+                    day = "星期三";
+                    break;
+                case 4:
+                    day = "星期四";
+                    break;
+                case 5:
+                    day = "星期五";
+                    break;
+                case 6:
+                    day = "星期六";
+                    break;
+            };
+            document.getElementById("day").innerText = "今天是" + day;
+        }
+
+        function msg(){
+            var text = "";
+            try{
+               alert1("welcome here!")
+            }
+            catch(err){
+                text = "本页有一个错误。 \n\n";
+                text += "错误描述：" + err.message + "\n\n";
+                text += "点击确认继续 。\n\n";
+                alert(text)
+            }
+        }
+
+        window.onload = function(){
+
+            // 1.变量转换
+            var myVar  = "3.1415926",
+                str = ""+ myVar,// to string
+                int = ~~myVar, // to integer
+                int1 = parseInt(myVar), //取整数
+                ceil = Math.ceil(myVar), // 向上取整
+                floor = Math.floor(myVar), //向下取整
+                round = Math.round(myVar), //四舍五入
+                bool  = !!myVar, /* to boolean - any string with length and any number except 0 are true */
+                array  = [myVar]; // to array
+            //document.write( str + '<br />' + int + "<br />" + int1 + '<br />' + ceil + '<br />' + floor + '<br />' + round + '<br />' + bool + '<br />' + array)
+
+
+            // 2. currentStyle 和 getComputeStyle
+            var div = document.getElementById('top');
+            var da = document.getElementById("damn");
+            da.style.cursor = "pointer";
+            da.addEventListener("click",function(){
+                if (div.currentStyle) {
+                    // 支持IE 和 opera
+                    alert(div.currentStyle.color);
+                }else{
+                    // getComputeStyle()是只读，只能获取不能设置，style能读能设；
+                    console.log( "top的颜色是" + getComputedStyle(div).color);
+                }
+            });
+
+            // 3.获取元素的属性
+            var temp = document.getElementById('damn').getAttribute('data');
+            console.log(temp);
+
+            // 4.设置元素的属性
+            document.getElementById('damn').setAttribute('data','data2');
+            var temp2= document.getElementById('damn').getAttribute('data');
+            console.log(temp2);
+
+            // 5.删除元素属性
+            //document.getElementById('damn').removeAttribute('data');
+
+            // 6.设置元素的多个样式
+            var ele = document.getElementById("test");
+            ele.style.cssText = "fontSize:15px;color:red;border:1px solid orange;line-height:34px;padding-left:15px";
+
+            // 7.日期
+            var mydate = new Date();
+            var year = mydate.getFullYear();  //年
+            var month = mydate.getMonth();   //月
+            month = month + 1;
+            var date = mydate.getDate();   //日
+            var week = mydate.getDay();   //星期
+            var hour = mydate.getHours();  //时
+            var minute = mydate.getMinutes(); //分钟
+            var second = mydate.getSeconds(); // 秒
+
+            var current1 = mydate.toLocaleDateString(); //获取当前日期    -----年/月/日
+            var current2 = mydate.toLocaleString( ); //获取日期与时间    -----年/月/日  上下午00:00:00
+            var current3 = mydate.toLocaleTimeString(); //获取当前时间   --- 上下午00:00:00
+
+            console.log(year + '年' + month + '月' + date + "日" +  "星期" + week + "----" + "时间：" + hour + "时" + minute +  "分" + second + "秒");
+            console.log( current1 + '---' + current2 + "---" + current3);
+
+
+            // 8.带有换行警告框
+            // alert("带有换行的 \n 警告框");
+
+            // 9.确认弹出框
+            var con = document.getElementById("cli");
+            con.style.cursor = "pointer";
+            con.onclick = function(){
+                var text;
+                var jump = confirm("是否按下按钮？");
+                if( jump == true ){
+                    text = "你选择了确定"
+                }else{
+                    text = "你选择了取消"
+                }
+                document.getElementById("btn").innerText = text
+            };
+
+            // 10.document.querySelector 获取全部class 并添加hover功能
+            var eles = document.querySelectorAll(".pic");
+            for( var i = 0; i < eles.length; i++){
+                eles[i].onmouseover = function(){
+                    this.style.backgroundColor = 'orange'
+                };
+                eles[i].onmouseout = function(){
+                    this.style.backgroundColor = 'white'
+                };
+                eles[i].style.color = "red"
+            };
+
+
+            // 11.添加移除class    classlist为H5新加，在ie9及以下不兼容
+            var add = document.getElementById("add");
+            add.style.cursor = 'pointer';
+            add.onclick = function(){
+                if( add.className == "on"){
+                    add.classList.remove("on")
+                }else{
+                    add.classList.add("on")
+                }
+            };
+
+            // 12.break  continue  return
+            for( var i = 0; i < 10; i++){
+                if( i == 5 ){
+                    break;
+                }
+                console.log(i);
+                //结果是：0,1,2,3,4
+            }
+
+            for( var i = 0; i < 10; i++){
+                if( i == 5 ){
+                    continue;
+                }
+                console.log(i);
+                //结果是：0,1,2,3,4,6,7,8,9
+            }
+
+            function fun3(){
+                if( !true ){
+                    return false
+                }
+            }
+
+            // 13.switch
+            var day;
+            switch( new Date().getDay() ){
+                case 0:
+                    day = "星期日";
+                    break;
+                case 1:
+                    day = "星期一";
+                    break;
+                case 2:
+                    day = "星期二";
+                    break;
+                case 3:
+                    day = "星期三";
+                    break;
+                case 4:
+                    day = "星期四";
+                    break;
+                case 5:
+                    day = "星期五";
+                    break;
+                case 6:
+                    day = "星期六";
+                    break;
+            };
+
+            // 14. try catch 语句
+            //try语句错误时会执行catch语句
+
+            // var text = "";
+            // try{
+            //     alert1("welcome here!")
+            // }
+            // catch(err){
+            //     text = "本页有一个错误。 \n\n";
+            //     text += "错误描述：" + err.message + "\n\n";
+            //     text += "点击确认继续 。\n\n";
+            //     alert(text)
+            // };
+
+            // 15. substr(start,length)
+            //     substring(start,stop)   包左不包右
+            var array1 = "i amaboy";
+            var arr1 = array1.substr(2,3);   //从第二个下标开始取三个
+            var arr2 = array1.substring(2,3);  //从第二个开始到第三个结束
+            console.log(arr1 + '\n\n' + arr2);
+
+            // 16. split() 方法用于把一个字符串分割成字符串数组
+            var str="How are you doing today?";
+            console.log(str.split("y") );       //How are ,ou doing toda,?
+            console.log(str.split(" ",5) );   //How,are,you,doing,today?
+            console.log(str.split(""));    //H,o,w, ,a,r,e, ,y,o,u, ,d,o,i,n,g, ,t,o,d,a,y,?
+            console.log(str.split(" ",3) );        //["How", "are", "you"]
+
+            // 17.splice() 方法用于添加或删除数组中的元素
+            var fruits = ["Banana", "Orange", "Apple", "Mango"];
+            fruits.splice(2,1,"Lemon","Kiwi");   //在第三个位置删除零个数据并添加 lemon  kiwi
+            console.log(fruits);
+
+            var sport = [15,52,63,65,89];
+            sport.splice(0,1);   //在sport中 删除第一个数字15
+            console.log(sport);
+
+            // 18.slice(start,end)  提取字符串的某个部分，并以新的字符串返回被提取的部分。start 和 end 可以是负数
+            var array2 = 'howardishandsome';
+            var arr3 = array2.slice(2,5);
+            var arr4 = array2.slice(2);
+            var arr5 = array2.slice(-2,-1);  //-2是开始下标，-1是结束下标
+            console.log(arr3 + '\n' + arr4 + '\n' + arr5);
+
+            var a31 = [1,5,9,6,3,2,7,4,8];
+            var sd = a31.slice();
+            console.log(sd);
+            console.log(a31);
+
+            // 19.replace() 用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串
+            var str1="Visit Microsoft! script creepy";
+            console.log(str1.replace(/Microsoft/, "W3School"));  //将Microsoft换成W3School
+            console.log(str1.replace("Microsoft", "W3School"));  //将Microsoft换成W3School
+            console.log(str1.replace(/cr/g, "CR"));   //将所有的cr换成CR
+
+            var text1 = "aaa aaa javascript Tutorial";
+            console.log(text1.replace(/aaa/i, "JAVA"));   //确保匹配字符串大写字符的正确  只能匹配第一个aaa
+
+            // 20.push
+            var a1 = [2,1];
+            var a2 = a1.push(5);
+            console.log(a1);  // 新数组：[2,1,5]
+            console.log(a2); //返回新数组的长度 ：3
+
+            // 21.parseFloat() 函数可解析一个字符串，并返回一个浮点数。
+            //该函数指定字符串中的首个字符是否是数字。如果是，则对字符串进行解析，直到到达数字的末端为止，然后以数字返回该数字，而不是作为字符串。
+            var sd = "2.56ass";
+            var sdd = parseFloat(sd);
+            console.log(sdd);
+
+            // 22.parseInt() 函数可解析一个字符串，并返回一个整数。
+            parseInt("10");  //10
+            parseInt("10.33");  //10
+            parseInt("34 45 66");  //34
+            parseInt(" 60 ");   //60
+            parseInt("40 years");  //40
+            parseInt("He was 40");   //NAN
+            parseInt("10",10);   //10
+            parseInt("010");  //10
+            parseInt("10",8);  //8
+            parseInt("0x10");  //16
+            parseInt("10",16);  //16
+
+            // 23. 鼠标坐标
+            // screenY:电脑屏幕的高度，包括浏览器的头部底部
+            // clientY:浏览器可见区域的高度纵坐标，不会随滚动条的移动而改变该位置坐标的值
+            // pageY：文本内容的高度的纵坐标，会随着滚动条的滚动而改变该位置纵坐标的值
+
+            //screenX :当鼠标事件发生时，鼠标相对于显示器屏幕x轴的位置；
+            //clientX :当鼠标事件发生时（不管是onclick，还是omousemove，onmouseover等），鼠标相对于浏览器（这里说的是浏览器的有效区域）x轴的位置；
+            //pageX : 参照点是浏览器内容区域的左上角，但它不会随着滚动条而变动.
+            //screenX ,clientX ,pageX 的值是一样的，都是浏览器可视区域的横坐标
+
+            document.getElementById("range").onmousemove = function(e){
+                var eEvent = e || event;
+                var x = eEvent.clientX;
+                var y = eEvent.clientY;
+                document.getElementById('location').innerText = "x坐标:" + x + "----" + "y坐标:" + y;
+            };
+
+            // 24.获取高度，宽度，左边距，右边距
+            var wh = document.documentElement.clientHeight;  //可视窗口高度
+            var wh1 = window.innerHeight;                      //可视穿口高度
+            var dh = document.documentElement.scrollHeight;  //文本内容高度
+            var oh = document.documentElement.offsetHeight;  //文本内容 + 边框 总高度
+
+            var wk = document.documentElement.clientWidth;  //可视窗口宽度
+            var wk1 = window.innerWidth;                      //可视窗口宽度
+            var dk = document.documentElement.scrollWidth;  //文本内容宽度
+            var rk = document.documentElement.offsetWidth;  //文本内容 + 边框 总宽度
+
+            var obj = document.getElementById('obj');
+            var left = obj.offsetLeft;    //左边距
+            var top = obj.offsetTop;      //右边距
+            console.log( left + "\n" + top );
+
+
+
+            // 25.
+            // (1)createElement（）方法创建元素
+            // (2)createTextNode（）创建文本节点
+            // (3)createDocumentFragment（）创建文档碎片
+            // (4)appendChild（）为当前节点新增一个子节点，并且将其作为最后一个子节点
+            // (5)insertBefore（）为当前节点新增一个子节点，将其插入到指定的子节点之前
+            // (6)replaceChild（）将当前节点的某个子节点替换为其他节点
+            // (7)removeChild（）删除当前节点的某个子节点
+
+            var p = document.createElement("p");
+            p.style.cssText = "text-align:center;width:200px;height:200px;border:1px solid black;display:inline-block;position:absolute;top:150px;left:400px;background:violet;";
+            var t = document.createTextNode("全栈学习！");
+            p.appendChild(t);
+            document.body.appendChild(p);
+
+            // 26.鼠标常用事件
+            // onClick         单击鼠标左键时触发
+            // onDbclick       双击鼠标左键时触发
+            // onmousedown     鼠标任意一个按键按下时触发
+            // onmouseup       松开鼠标任意一个按键时触发
+            // onmouseover     鼠标指针移动到元素上触发
+            // onmouseout      鼠标指针移出该元素边界时触发
+            // onmouseenter
+            // onmouseleave
+            // onmousemove     鼠标指针在某个元素上移动时持续触发
+
+            // 27.对象那个中 获取和设置属性有2种：. 和 [] ，.是自身属性，[]可以是变量
+            var obj = {
+                name:"howard",
+                age:18
+            };
+            var asd = "name";
+            console.log(obj[asd]);  // howard
+            console.log(obj['name']); //hoawrd
+            console.log(obj['age']); //18
+
+            // 28.属性的删除
+            var obj1 = {
+                a:1,
+                b:2,
+                c:3,
+                d:undefined,
+                e:123
+            };
+            var sd = "a";
+            delete obj1["b"];
+            delete obj1[sd];
+            delete obj1.c;
+            console.log(obj1);
+
+            // 29. 检测属性
+            var o2 = {
+                a:1,
+                b:2,
+                c:3
+            };
+            console.log( "a" in o2 );  //true
+            console.log( "v" in o2 );  //false
+
+            //obj.hasOwnProperty()
+            var o3 = {
+                a:1,
+                b:2,
+                c:3
+            };
+            console.log( o3.hasOwnProperty("a") );  //true
+            console.log( o3.hasOwnProperty("as") );  //false
+
+            // 30. 属性的遍历
+            var o4 = {
+                a:1,
+                b:2,
+                c:3
+            };
+            // 对象  获取的是属性key
+            for( var k in o4){
+                console.log(k);  //获取到对象的属性
+                console.log(o4[k])  //获取到对象的属性对应的值
+            }
+
+            //数组  获取的是索引
+            var arr6 = [123,52,63,987];
+            for( var i in arr6 ){
+                console.log("arr4的索引：" + i)
+            }
+
+            // forEach  和map的用法一样，但是forEach没有返回值
+            var arr7 = ["x","y","z","w"];
+            arr7.forEach(function(item,index,input){
+                // item :当前元素
+                //index: 索引
+                //input：["x","y","z","w"]
+                console.log(item + '\n' + index + '\n' + input);
+            });
+
+            //map  和forEach的用法一样，但是map有返回值
+            var arr8 = ["xx","yy","zz","ww"];
+            arr8.map(function(item,index,input){
+                // item :当前元素
+                //index: 索引
+                //input：["x","y","z","w"]
+                console.log(item + '\n' + index + '\n' + input);
+            });
+
+            var arr9 = ["x","y","z","w"];
+            var map1 = arr9.map(function(item,index,input){
+                return item + '1';
+            });
+            console.log(map1);
+
+            // 31.序列化
+            var obj4 = {
+                name:"belly",
+                job:'programer'
+            };
+            // JSON.stringify()  对象转json字符串
+            // JSON.parse()   json字符串转对象
+            console.log( typeof JSON.stringify(obj4));   //string
+            var str4 = JSON.stringify(obj4);
+            console.log( typeof JSON.parse(str4));     //object
+
+            // 32. 深拷贝  浅拷贝
+            //简单来说，假设B复制了A，当修改A时，看B是否会发生变化，如果B也跟着变了，说明这是浅拷贝，如果B没变，那就是深拷贝；
+
+            // 深拷贝
+            var a1 = 1, a2= a1;
+            console.log(a1); //1
+            console.log(a2); //1
+            a2 = 2; //修改 a2
+            console.log(a1); //1     a1没有发生改变
+            console.log(a2); //2
+
+            //浅拷贝
+            var o1 = {x: 1, y: 2}, o2 = o1;
+            console.log(o1); //{x: 1, y: 2}
+            console.log(o2); //{x: 1, y: 2}
+            o2.x = 2; //修改o2.x
+            console.log(o1); //{x: 2, y: 2}   o1 和 o2对象里面的值发生了变化
+            console.log(o2); //{x: 2, y: 2}
+
+            // 利用对象的深拷贝实现原理   原本是浅拷贝通过方法变为深拷贝
+            // (1) 把数组变为深拷贝 slice()
+            var array3 = [152,56,5,66,8];
+            var arrc3 = array3.slice();
+            array3[0] = "belly";
+            console.log(array3 + '----' + arrc3);
+
+            // (2) 把数组变为深拷贝 concat()
+            var array4 = ["hello",'bye',"nice","good"];
+            var arrc4 = array4.slice();
+            array4[0] = "color";
+            console.log(array4 + '----' + arrc4);
+
+            //(3) 把对象变为深拷贝  JSON.parse(JSON.stringify(obj))
+            var obj5 = {
+                name:"belly",
+                job:'programer'
+            };
+            var obj6 = JSON.parse(JSON.stringify(obj5));
+            obj5['name'] = "贝利";
+            console.log(obj5);
+            console.log(obj6);
+
+            //(4) 把对象变为深拷贝   定义一个新的对象，遍历源对象的属性 并 赋给新对象的属性  new Object()   -----最常见也最为简单实现
+            var obj7 = {
+                name:"lock",
+                age:18
+            };
+            var obj8 = new Object();
+            obj8.name = obj7.name;
+            obj8.age = obj7.age
+            obj8.name = "洛克";
+            console.log(obj7);
+            console.log(obj8);
+
+
+            // 33. 面向对象
+            var a = function(name){
+                if(name) this.name = name
+            };
+            var b = function(name){
+                this.name = name
+            };
+            var c = function(name){
+                this.name = name || "dog"
+            };
+            a.prototype.name = "cat";
+            b.prototype.name = "cat";
+            c.prototype.name = "cat";
+
+            console.log(new a().name);   //cat
+            console.log(new b().name);   //undefined
+            console.log(new c().name);   //dog
+
+            // 34.
+            function Foo(){
+                getName = function(){
+                    alert(1)
+                };
+                return this
+            }
+            Foo.getName = function(){
+                alert(2)
+            };
+            Foo.prototype.getName = function(){
+                alert(3)
+            };
+            var getName = function(){
+                alert(4)
+            };
+            function getName(){
+                alert(5)
+            }
+            Foo.getName();               //2
+            getName();                   //4
+            Foo().getName();             //1
+            getName();                   //1
+            new Foo.getName();           //2
+            new Foo().getName;           //3
+            new new Foo().getName();     //3
+
+            // 35.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        };
+
+
+    </script>
+</body>
+</html>

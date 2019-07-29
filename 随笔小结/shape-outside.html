@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>shape-outside</title>
+    <style>
+        * {
+            margin: 0;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+
+        /*   wraper1  */
+        .wraper1 {
+            display: flex;
+            margin: 20px;
+            flex-wrap: wrap;
+        }
+
+        .wraper1 h3 {
+            margin-bottom: 32px;
+        }
+
+        .wraper1 >div {
+            margin-bottom: 16px;
+            flex-basis: 400px;
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
+
+        .shape {
+            float: left;
+            width: 100px;
+            height: 100px;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 50%;
+            border: 20px solid #2d8cf0;
+        }
+
+        .shape2 {
+            shape-outside: margin-box;
+        }
+
+        .shape3 {
+            shape-outside: border-box;
+        }
+
+        .shape4 {
+            shape-outside: padding-box;
+        }
+
+        .shape5 {
+            shape-outside: content-box;
+        }
+
+        .shape6 {
+            width: 100px;
+            height: 100px;
+            float: left;
+            shape-image-threshold: 0.5;
+            background: linear-gradient(220deg,rgba(255,255,255,0),#2d8cf0);
+            shape-outside: linear-gradient(220deg,rgba(255,255,255,0),#2d8cf0);
+        }
+
+
+        #gradient-shape {
+            width: 150px;
+            height: 150px;
+            background-image: linear-gradient(30deg, black, orange 80%,
+            red);
+            /*shape-outside: linear-gradient(30deg, black, transparent 50%,*/
+            /*red);*/
+            /*background-position: left center;*/
+            shape-image-threshold: 0.2;
+        }
+
+        /*  wraper2  */
+        p {
+            margin: 0;
+        }
+        .wraper2 {
+            display:flex;
+            flex-wrap: wrap;
+        }
+
+        .wraper2 .item {
+            flex-basis: 500px;
+            margin-bottom: 30px;
+        }
+
+        .shapes {
+            float: left;
+            width: 200px;
+            height: 200px;
+        }
+
+        .shapes1 {
+            shape-outside: circle(50%);
+            border-radius: 50%;
+        }
+
+        .shapes2 {
+            shape-outside: polygon(0 0, 100% 100%, 0 100%);
+        }
+
+        .shapes3 {
+            shape-outside: ellipse(72px 88px);
+        }
+
+        .shapes4 {
+            shape-outside: inset(72px 88px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="wraper1">
+    <div>
+        <h3>默认</h3>
+        <div>
+            <div class="shape shape1"></div>
+            <p>今夕何夕兮，搴舟中流。</p>
+            <p>今日何日兮，得与王子同舟。</p>
+            <p>蒙羞被好兮，不訾诟耻。</p>
+            <p>心几烦而不绝兮，得知王子。</p>
+            <p>山有木兮木有枝，心悦君兮君不知。</p>
+        </div>
+    </div>
+
+    <div>
+        <h3>盒模型形状-margin-box</h3>
+        <div>
+            <div class="shape shape2"></div>
+            <p>今夕何夕兮，搴舟中流。</p>
+            <p>今日何日兮，得与王子同舟。</p>
+            <p>蒙羞被好兮，不訾诟耻。</p>
+            <p>心几烦而不绝兮，得知王子。</p>
+            <p>山有木兮木有枝，心悦君兮君不知。</p>
+        </div>
+    </div>
+
+    <div>
+        <h3>盒模型形状-border-box</h3>
+        <div>
+            <div class="shape shape3"></div>
+            <p>今夕何夕兮，搴舟中流。</p>
+            <p>今日何日兮，得与王子同舟。</p>
+            <p>蒙羞被好兮，不訾诟耻。</p>
+            <p>心几烦而不绝兮，得知王子。</p>
+            <p>山有木兮木有枝，心悦君兮君不知。</p>
+        </div>
+    </div>
+
+    <div>
+        <h3>盒模型形状-padding-box</h3>
+        <div>
+            <div class="shape shape4"></div>
+            <p>今夕何夕兮，搴舟中流。</p>
+            <p>今日何日兮，得与王子同舟。</p>
+            <p>蒙羞被好兮，不訾诟耻。</p>
+            <p>心几烦而不绝兮，得知王子。</p>
+            <p>山有木兮木有枝，心悦君兮君不知。</p>
+        </div>
+    </div>
+
+    <div>
+        <h3>盒模型形状-content-box</h3>
+        <div>
+            <div class="shape shape5"></div>
+            <p>今夕何夕兮，搴舟中流。</p>
+            <p>今日何日兮，得与王子同舟。</p>
+            <p>蒙羞被好兮，不訾诟耻。</p>
+            <p>心几烦而不绝兮，得知王子。</p>
+            <p>山有木兮木有枝，心悦君兮君不知。</p>
+        </div>
+    </div>
+
+    <div>
+        <h3>渐变</h3>
+        <div>
+            <div class="shape6"></div>
+            <p>今夕何夕兮，搴舟中流。</p>
+            <p>今日何日兮，得与王子同舟。</p>
+            <p>蒙羞被好兮，不訾诟耻。</p>
+            <p>心几烦而不绝兮，得知王子。</p>
+            <p>山有木兮木有枝，心悦君兮君不知。</p>
+        </div>
+    </div>
+</div>
+
+<div style="width: 100%;height: 160px;">
+    <div id="gradient-shape"></div>
+</div>
+
+<div class="wraper2">
+    <div class="item">
+        <h4>创建圆:shape-outside: circle(50%);</h4>
+        <div>
+            <img src="images/shapes.jpg" class="shapes shapes1">
+            <p>关关雎鸠，在河之洲</p>
+            <p>窈窕淑女，君子好逑</p>
+            <p>参差荇菜，左右流之</p>
+            <p>窈窕淑女，寤寐求之</p>
+            <p>求之不得，寤寐思服</p>
+            <p>悠哉悠哉，辗转反侧</p>
+            <p>参差荇菜，左右采之</p>
+            <p>窈窕淑女，琴瑟友之</p>
+            <p>参差荇菜，左右芼之</p>
+            <p>窈窕淑女，钟鼓乐之</p>
+        </div>
+    </div>
+
+    <div class="item">
+        <h4>创建多边形:shape-outside: polygon(100% 0, 100% 100%, 0 100%);</h4>
+        <div>
+            <div class="shapes shapes2"></div>
+            <p>关关雎鸠，在河之洲</p>
+            <p>窈窕淑女，君子好逑</p>
+            <p>参差荇菜，左右流之</p>
+            <p>窈窕淑女，寤寐求之</p>
+            <p>求之不得，寤寐思服</p>
+            <p>悠哉悠哉，辗转反侧</p>
+            <p>参差荇菜，左右采之</p>
+            <p>窈窕淑女，琴瑟友之</p>
+            <p>参差荇菜，左右芼之</p>
+            <p>窈窕淑女，钟鼓乐之</p>
+        </div>
+    </div>
+
+    <div class="item">
+        <h4>创建椭圆:shape-outside: ellipse(72px 88px);</h4>
+        <div>
+            <div class="shapes shapes3"></div>
+            <p>关关雎鸠，在河之洲</p>
+            <p>窈窕淑女，君子好逑</p>
+            <p>参差荇菜，左右流之</p>
+            <p>窈窕淑女，寤寐求之</p>
+            <p>求之不得，寤寐思服</p>
+            <p>悠哉悠哉，辗转反侧</p>
+            <p>参差荇菜，左右采之</p>
+            <p>窈窕淑女，琴瑟友之</p>
+            <p>参差荇菜，左右芼之</p>
+            <p>窈窕淑女，钟鼓乐之</p>
+        </div>
+    </div>
+
+    <div class="item">
+        <h4>创建矩形: shape-outside: inset(72px 88px);</h4>
+        <div>
+            <div class="shapes shapes4"></div>
+            <p>关关雎鸠，在河之洲</p>
+            <p>窈窕淑女，君子好逑</p>
+            <p>参差荇菜，左右流之</p>
+            <p>窈窕淑女，寤寐求之</p>
+            <p>求之不得，寤寐思服</p>
+            <p>悠哉悠哉，辗转反侧</p>
+            <p>参差荇菜，左右采之</p>
+            <p>窈窕淑女，琴瑟友之</p>
+            <p>参差荇菜，左右芼之</p>
+            <p>窈窕淑女，钟鼓乐之</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

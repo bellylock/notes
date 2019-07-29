@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <style>
+        .btn-red{
+            background-color: red;
+            color: #fff;
+        }
+        .btn-blue{
+            background-color: blue;
+            color: #fff;
+        }
+        .btn-orange{
+            background-color: orange;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="my">
+        <span class="red">红色</span>
+        <span class="blue">蓝色</span>
+        <span class="orange">howard</span>
+    </div>
+    <script>
+        function Btns(title,style){
+            this.title = title;
+            this.style = style
+        }
+
+        Btns.prototype.toHtml = function(){
+            return "<button class = "+this.style+">"+this.title+"</button>"
+        }
+
+        $(function(){
+            var red = new Btns( '红色','btn-red');
+            var blue = new Btns( '蓝色','btn-blue');
+            var orange = new Btns( '橙色','btn-orange');
+
+            $(".red").html( red.toHtml());
+            $(".blue").html( blue.toHtml());
+            $(".orange").html( orange.toHtml());
+        })
+
+        // function BaseButton(title,style) {
+        //     this.title = title;
+        //     this.style = style;
+        // };
+        // BaseButton.prototype.toHtml = function(){
+        //     return "<button class='btn "+this.style+"'>"+this.title+"</button>"
+        // };
+        // $(function(){
+        //     var red = new BaseButton('红色','btn-red');
+        //     var blue = new BaseButton('蓝色','btn-blue');
+        //     $(".div-red").html(red.toHtml());
+        //     $(".div-blue").html(blue.toHtml());
+        // })
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+    <div id="my">
+        <p>(obj.name):{{obj.name}}</p>
+        <p>(obj.id):{{obj.id}}</p>
+        <a href="###" @click="update()">更新</a>
+        <button @click="add()">添加</button>
+        <ul>
+            <li v-for="item in list">
+                <p>{{item.name}} &nbsp;&nbsp;| &nbsp;&nbsp;{{item.id}}</p>
+            </li>
+        </ul>
+        {{list}}
+    </div>
+    <script>
+        window.onload = function(){
+            var vm = new Vue({
+                el:"#my",
+                data:{
+                    obj:{
+                        name:'howard',
+                        age:18
+                    },
+                    list:[
+                        {name:"tom",age:12},
+                        {name:"tom2",age:13},
+                        {name:"tom3",age:14},
+                    ]
+                },
+                methods:{
+                    update:function(){
+                        // this.obj.name = 'lee';
+                        this.$set(this.obj,'id',99)
+                    },
+                    add(){
+                        // this.$set(this.list[2],'id',1);
+                        this.list.map( (v,i) => {
+                            this.$set(this.list[i],'id',(i+10))
+                        });
+                    }
+                },
+                mounted(){
+                    // this.list.push({
+                    //     name:'tom4',
+                    //     age:15
+                    // });
+                    // this.list.forEach((v,i)=>{
+                    //     v.id = (i+1);
+                    // });
+                    this.list.map( (v,i) => {
+                        this.$set(this.list[i],'id',(i+1))
+                    });
+                }
+            })
+        }
+    </script>
+</body>
+</html>

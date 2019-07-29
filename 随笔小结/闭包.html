@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>闭包点击第i个数据</title>
+</head>
+<style>
+
+</style>
+
+<body>
+<p class="sp">pAry456</p>
+<p class="sp">pAry123</p>
+<p class="sp">pAry000</p>
+<hr>
+<h2 id="hh1">3.25</h2>
+<h2 id="hh2">3.5</h2>
+<h2 id="hh3">3.4</h2>
+
+<hr />
+
+<div id="main">
+    <div id="box">111</div>
+    <div class="box2">222</div>
+    <button onclick="del()">btn</button>
+</div>
+
+<hr />
+<ul id="myList"><li>Coffee</li><li>Tea</li><li>Milk</li></ul>
+<button onclick="myFunction()">点我删除</button>
+<!--<button onclick="myFunction()">click</button>-->
+
+
+<!--<iframe name="我的天空" frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86-->
+        <!--src="//music.163.com/outchain/player?type=3&id=2056568286&auto=1&height=66"></iframe>-->
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+
+    function del(){
+        var box = document.getElementById("main");
+        // box.parentNode.removeChild(main.childNodes[0]);
+        main.removeChild(main.childNodes[1]);
+    }
+
+    function myFunction(){
+        var list=document.getElementById("myList");
+        var len = list.childNodes.length-1;
+        list.removeChild(list.childNodes[len]);
+    }
+</script>
+<script>
+    // push() 方法：可向数组的末尾添加一个或多个元素，并返回新的长度，（用来改变数组长度）。
+
+    var movePos=[11,22];
+    var arr=movePos.push("333");
+    document.write("<p>arr</p>");  //返回的结果就是数组改变后的长度：3
+    document.write("---");
+    document.write(arr.length);  //undefined
+
+    // num();
+    // box1();
+    // init1();
+    aaa();
+
+    function init1() {
+        var pAry = document.getElementsByClassName("sp");
+        for (var i = 0; i < pAry.length; i++) {
+            pAry[i].i = i;
+            pAry[i].onclick = function () {
+                console.log(this.i);
+                // pAry[this.i].innerHTML = "";  //删除当前选项
+            }
+
+        }
+    }
+
+    function aaa(){
+        var arr = document.getElementsByClassName("sp");
+        for( var i = 0; i < arr.length; i++){
+            arr[i].i = i;
+            arr[i].onclick = function(){
+                console.log(this.i)
+            }
+        }
+    }
+
+    function box1(){
+        var arr = [];
+        for(var i=0;i<5;i++){
+            arr[i] = i;
+        }
+        // return arr;
+        console.log(arr)
+    }
+
+
+    function num(){
+        var value = document.getElementById("hh2");
+        var a = parseInt(value.innerText);
+        console.log(a)
+    }
+
+</script>
+</body>
+</html>

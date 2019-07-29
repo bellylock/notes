@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script src="js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<!-- display:block; 将元素转换为块级元素
+    display:inline; 将元素转换为内联元素
+    display:inline-block; 将内联元素拥有块级元素的属性
+    块级元素   他会撑满页面 width：100%
+    内联元素   根据内容有多少撑多少
+ -->
+ <style>
+     /* div{background:red;display:inline; width:100px;} */
+     span{background:green;width:1000000px;display:inline-block;}
+/* # id选择器
+.class选择器
+* 通配符 */
+        /* absolute 绝对定位 */
+        /* relative 相对定位 */
+        /* fixed 固定定位 */
+        #asd{position:fixed;left:200px;background:red;}
+        #aaa{width:100px;height:100px;}
+ </style>
+<div>123</div>
+<span>555</span>
+<div>321</div>
+<span>666</span>
+<div id="aaa">
+    <div id="asd">
+    1
+    </div>
+</div>
+
+<div id="abc">1</div>
+<div id="abc">2</div>
+<div id="abc">3</div>
+<div id="abc">4</div>
+<div id="abc">5</div>
+
+<style>
+/* css 里 空格找到的是哪一级 */
+
+/*
+  >    子元素
+  空格  下面的所有
+  ,     两个不同的
+  +     下一个同级
+
+
+
+
+*/
+
+
+    ul li {
+        width:10px;height:10px;background:blue;
+    }
+</style>
+<ul>
+    <li>
+
+    </li>
+    <li>
+
+    </li>
+    <li>
+
+    </li>
+    <li>
+
+    </li>
+</ul>
+
+<style>
+    #test span:nth-child(1){background:gray;}
+    #test1 p:nth-child(5){background:blue;}
+</style>
+<div id="test">
+    <p>1</p>
+    <h1>2</h1>
+    <span>3</span>
+    <span>4</span>
+    <div>5</div>
+    <p>6</p>
+    <div>7</div>
+</div>
+
+<div id="test1">
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <p>4</p>
+    <p>5</p>
+    <p>6</p>
+    <p>7</p>
+</div>
+
+
+<style>
+    #test2 .test3+.test3+.test3{background:yellow;}
+</style>
+<div id="test2">
+    <p class="test3">1</p>
+    <p class="test3">2</p>
+    <p class="test3">3</p>
+    <p>4</p>
+</div>
+
+<input type="checkbox"/>
+<p price>1</p>
+<p price>2</p>
+<p price>3</p>
+<p price>4</p>
+
+
+<select>
+    <option></option>
+    <option>1</option>
+    <option>2</option>
+    <option selected>3</option>
+    <option>4</option>
+    <option>5</option>
+</select>
+
+<!-- hidden 隐藏
+    drop 拖拽
+    编辑
+ -->
+<div id="zz" draggable="true">
+    123456789
+</div>
+
+<a href="项目问题.html" target="_blank">跳转页面</a>
+<button onClick="gotoHtml()">页面跳转</button>
+<!--
+text
+password
+email
+reset
+submit
+redio
+checkbox
+button
+
+number
+date
+file    上传文件
+ -->
+ <!-- 好看点的input 上传文件
+ 将inpuit file 隐藏或者通过更改z-index 层级在最下层
+ 然后通过定义一个标签 图片。。。 放到input file上 遮盖住他
+ 然后通过监听这个图片。。。 他的点击事件 触发到input file的点击事件
+ 上传显示略缩图 是在监听这input file的change事件
+  -->
+  <select multiple>
+      <option>123</option>
+      <option>1232</option>
+      <option>1233</option>
+      <option>1234</option>
+  </select>
+<input type="file" id="upload" multiple/>
+<button onClick="btnClick()">这个按钮触发事件</button>
+<script>
+
+
+function btnClick(){
+    //不写回调方法的时候 则为触发他
+    //focus()
+    //blur()
+    $("#upload").click();
+}
+function gotoHtml(){
+    // location.href = "项目问题.html";//链接跳转
+    // window.open("项目问题.html"); ///会打开一个新的标签页
+    //返回上一页
+    //* 前进*页
+    //1 前进一页
+    //0 刷新
+    //-1 后退一页   并刷新页面
+    //-* 后退*页
+    // history.go(-1);
+    //
+
+    //location.reload(); //刷新当前页面
+}
+// addClass()      添加class
+// removeClass()   移除class
+//toggleClass()    切换class  有这个class的话就移除 没有的话就添加
+//hasClass()  判断是否拥有这个class
+    $(function(){
+
+        $("#upload").on("change",function(event){
+            var files = event.target.files;
+            var file = files[0];
+
+            var img = new Image(); //相当于创建<img />
+            img.src = window.URL.createObjectURL(file);//将 文件对象转换为图片所使用的格式url base64
+            $("body").append(img);
+        });
+
+        //jQuery选择器上 # . 标签
+        //属性选择器  找标签上写的属性[]
+        $("input[type=checkbox]").attr("checked","checked");
+        $("[price]").text("123123123");
+        var p = document.querySelectorAll("[price]");
+        console.log(p);
+        console.log($("select option:selected").val());
+        console.log($("select option").is(":selected"));
+        //$("checkbox").is(":checked")//判断多选框是否被勾上
+        var array = ["1","2","3","4","5"];
+        //forEach  遍历
+        //map      遍历   map会存在返回值 每遍历一次就返回一次并且返回的数值与数组长度一致
+        var ar = array.map(value => {
+            return 1;
+        });
+        console.log(ar);
+        //冒泡核心思维
+        //挨个挨个的逐个进行比较
+        //例如从第一个开始 第一个数跟后面所有数字进行比较 如果找到一个比他大或者比他小的则替换位置 等到整行全部走完 可以保证有一个最大值或者最小值放在第一位上  接下来从第二行在重复做比较
+        //jQuery .attr()
+        //.attr("")  一个获取
+        //.attr("","") 改变对应属性的值
+        // $("#zz").attr("hidden","hidden");
+
+    });
+
+    //GET        会在浏览器的地址栏上看到传输的参数数据 明文数据 不安全 有长度限制
+    //POST       不会在浏览器的地址栏上看到任何的数据 安全 传输长度没有限制
+    //
+    //同步       页面会处于假死状态 阻塞线程 假如这个在假死状态中 用户拼命点击任何的东西 等数据返回页面假死状态结束后 会将刚刚用户的所有操作进行执行一遍
+    //异步       会开辟一个新的线程请请求参数 等数据返回后在执行他的逻辑 与js的主线程之间没有任何影响
+    $.ajax({
+        type:"GET",//POST
+        async: true,//异步
+
+    });
+
+
+</script>
+</body>
+</html>

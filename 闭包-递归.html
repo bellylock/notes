@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+    <div id="my">
+        <p>跳转 <span class="number">5</span>秒后</p>
+        <br />
+        <h3 class="income"></h3>
+    </div>
+    <script>
+
+        // 闭包
+        // 调用方法一
+        function parent(){
+            var name = 'yyy';
+            function son(){
+                var name = 'son';
+                return name
+            }
+            return son
+        }
+        parent();    //结果是son这个方法
+        parent()();  //结果是son
+
+        // 调用方法二
+        var fun = ( function parent(){
+            var name = 'asd';
+            function son(){
+                var name = 'son1';
+                return name
+            }
+            return son
+        }());
+        fun();
+
+        //调用方法三   传参
+        var fun2 = ( function parent(y){
+           var i = 0;
+           return function son(){
+               return y[i++]
+           }
+        }(['kelly','belly','sally']));
+        fun2();  // 第一次  kelly
+        fun2();  // 第二次  belly
+        fun2();  // 第三次  sally
+
+        // 递归
+        function fact(num){
+            if( num <= 1){
+                return num
+            }else{
+                return num * fact(num - 1)
+            }
+        }
+        fact(4);  // 4*3*2*1=24
+
+        // 倒计时
+        var num = $(".number").text();
+        count(num);
+        function count(n){
+            if( n > 0 ){
+                setTimeout(function(){
+                    n--;
+                    $(".number").text(n);
+                    count(n)
+                },1000)
+            }else{
+                $(".number").fadeOut();
+                incoming()
+            }
+        }
+
+        function incoming(){
+            var str = '';
+            var timer = setInterval(function(){
+
+            },1000)
+        }
+
+    </script>
+</body>
+</html>

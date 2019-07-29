@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <style>
+        .content{
+            height: 1500px;
+        }
+        .h2{
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <h2 class="h2">舒肤佳</h2>
+    </div>
+    <script>
+        $(function(){
+            // var scroll = $(window).scrollTop();
+            // var viewh = $(window).height();
+            // var totalh = $(document).height();
+            // console.log(scroll);
+            // console.log(viewh);
+            // console.log(totalh);
+            // if( scroll + viewh +10 >= totalh ){
+            //     alert(123)
+            // }
+
+            $(window).scroll(function(){
+                var scroll = $(this).scrollTop();
+                var viewh = $(this).height();
+                var totalh = $(document).height();
+                console.log(scroll);
+                // console.log(viewh);
+                // console.log(totalh);
+                if( scroll >= 200 ){
+                    $(".h2").fadeIn()
+                }else{
+                    $(".h2").fadeOut()
+                }
+            })
+        });
+
+    </script>
+</body>
+</html>

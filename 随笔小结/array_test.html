@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>javascript对数组的操作</title>
+    <!--  [if it ie 9]>
+    <script src="http://cdn.static.runoob.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+    <! [endif] -->
+</head>
+<body>
+    <style>
+        input{
+            margin-bottom: 15px;
+        }
+    </style>
+    <div class="content">
+        <p>input用法</p>
+        颜色选择器：<input type="color"><br />
+        日期选择器：<input type="date"><br />
+        数字范围选择：<input type="number" min="1" max="10"><br />
+        禁止输入：<input type="text" disabled><br />
+        滑块：<input type="range" min="1" max="10" step="1"><br />
+
+        <form oninput="y.value=parseInt(a.value)+parseInt(b.value)">
+            0<input type="range" id="a" value="50">100
+            +<input type="number" id="b" value="50">
+            =<output name="y" for="a b"></output>
+        </form>
+
+        <hr />
+
+        <form action="" >
+            First name:<input type="text" name="fname"><br>
+            Last name: <input type="text" name="lname"><br>
+            E-mail: <input type="email" name="email" autocomplete="off"><br>
+            <input type="submit">
+        </form>
+
+        <hr />
+        
+        <input type="text" autofocus>
+
+    </div>
+    <script>
+        // 1. shift：删除原数组第一项，并返回删除元素的值；如果数组为空则返回undefined
+        var a = [1,2,3,5,6,8,9];
+        var b = a.shift();
+        // console.log(a +  "---" +b);
+
+        // 2. unshift：将参数添加到原数组开头，并返回数组的长度
+        var a2 = [5,3,6,8];
+        var b2 = a2.unshift();
+        // console.log(b2);
+
+        var aa = [4,5,6,3,2,1];
+        var ss = [0,9];
+        var dd = ss.concat(aa);
+        // console.log(dd);
+
+        function sortNumber(a,b)
+        {
+            return a - b
+        }
+
+        var arr = new Array(6)
+        arr[0] = "10";
+        arr[1] = "5";
+        arr[2] = "40";
+        arr[3] = "25";
+        arr[4] = "1000";
+        arr[5] = "1";
+
+        // document.write(arr + "<br />");
+        // document.write(arr.sort(sortNumber));
+
+        var qw = [1,5,2,3,9];
+        var we = qw.join("/");
+        console.log(we);
+
+
+    </script>
+</body>
+</html>

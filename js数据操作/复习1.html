@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="div1">
+		<h2>147</h2>
+	</div>
+	<div id="div2">
+		<h3>159</h3>
+		<p>111</p>
+	</div>
+	<!-- input select textear -->
+	<!-- 
+	disabled  禁用
+	readonly  只读
+	-->
+	<!-- bootstrap 上有一个class 就叫做disabled -->
+	<input type="text" id="input1" class="form-control" />
+	<input type="text" id="input2" class="form-control"/>
+	<input type="text" id="input3" class="form-control"/>
+	<input type="text" id="input4"/><button id="toggle">切换type</button>
+	<button class="btn btn-default" id="btn1">改变第一个为disabled</button>
+	<button class="btn btn-default" id="btn2">改变第二个为readonly</button>
+
+	<div style="width:100px;height:100px;background:red;" id="box">
+		
+	</div>
+	<button class="btn btn-default" id="show">显示</button>
+	<button class="btn btn-default" id="hide">隐藏</button>
+
+
+	<div id="box1">
+		<p>2</p>
+		<span>M</span>
+		<div id="innerBox1">
+			<p>321</p>
+			<p>3</p>
+		</div>
+		<p>234234234</p>
+	</div>
+	<button class="btn btn-default" id="aaa">添加一个input再页面最前面</button>
+
+
+	<div id="box2">
+		
+	</div>
+
+
+	<div id="box3">
+		<div id="child_box3">1</div>
+		<span id="child_span3">2</span>
+		<p class="child_p">321</p>
+		<p class="child_p">4</p>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			//效果 
+			//.html("") 不仅可以放文本 还可以放置html代码
+			//.text("") 只能放文本
+			//
+			//不填写参数 
+			//.html()  返回的是找到的DOM对象下的所有html代码
+			//.text()  返回的是找到的DOM对象下所有的本文内容
+			// $("#div1").html("<h1>123</h1>");
+			// $("#div2").text("<h1>321</h1>");
+			// console.log($("#div1").html());
+			// console.log($("#div2").text());
+			// 只要出现在标签上<>内的属性都可以通过attr来进行控制
+			// .attr("key");  去获取要找到的这个属性值
+			// .attr("key","value");  改变对应key下的属性值为value
+			$("#btn1").on("click",function(){
+				//通过去找input框的disabled属性 如果不存在返回undefined
+				var disabled = $("#input1").attr("disabled");
+				if(disabled != undefined){
+					$("#input1").removeAttr("disabled");
+				}else{
+					$("#input1").attr("disabled",true);
+				}
+			});
+			$("#btn2").on("click",function(){
+				var disabled = $("#input2").attr("readonly");
+				if(disabled != undefined){
+					$("#input2").removeAttr("readonly");
+				}else{
+					$("#input2").attr("readonly",true);
+				}
+			});
+			// $("#input4").attr("class","asd");
+			// $("#input4").attr('type',"password");
+			$("#toggle").on("click",function(){
+				var type = $("#input4").attr("type");
+				if(type == "text"){
+					$("#input4").attr("type","password");
+				}else{
+					$("#input4").attr("type","text");
+				}
+			});
+
+			//相当于vue上的v-show  更改标签的display属性 隐藏display：none 显示 移除display
+			//.show() 和.hide() 可以填写参数 参数为时间 
+			//1s = 1000ms
+			$("#show").on("click",function(){
+				//.show() 显示出来
+				$("#box").fadeIn(500);
+			});
+			$("#hide").on("click",function(){
+				//.hide()隐藏
+				$("#box").fadeOut(1000);
+			});
+
+			//append 找到标签后再他最后添加
+			//
+			$("#box1").append("<h1>123456</h1>");
+			//将要添加的标签 加到指定的标签后面跟着
+			$("<h1>456789</h1>").appendTo("#innerBox1");
+
+			$("#aaa").on("click",function(){
+				//after   指定添加到某个元素之后
+				//before   添加到某个元素之前
+				//很严重性的破坏了
+				//insertBefore  insertAfter
+				$("<input type='text' value='100'/>").insertBefore("body");
+			});
+			//jQuery上 通过.css增加的属性会在DOM的标签上出现style
+			//属性过多的情况下 尽量一个一个的.css实现
+			//.css("key","value");
+			//一次性增加多个属性 {key: value,key1:value1,}
+			//如果填写多个属性 则必须使用{} 
+			$("#box2").css({width: "100px",height:"100px",background: "red"});
+
+			//找节点
+			//.children() 找到子节点
+			$("#box3").children()
+		});
+	</script>
+</body>
+</html>

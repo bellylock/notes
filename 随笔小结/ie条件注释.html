@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ie条件注释</title>
+    <!--ie条件注释 只适用于ie9及以下-->
+
+    <!--[if IE 8]>
+    <script>
+        alert("ie8")
+    </script>
+    <![endif]-->
+
+    <!--[if gt IE 8]>
+    <script>
+        window.onload = function(){
+            alert("ie8以上(不包括ie8)")
+        }
+    </script>
+    <![endif]-->
+
+    <!--[if IE 7]>
+    <script >
+        alert("ie 7")
+    </script>
+    <![endif]-->
+
+    <!--[if !IE]><!-->
+    <script >
+        alert("非ie浏览器")
+    </script>
+    <![endif]-->
+
+</head>
+<body>
+    <h1 style="text-align: center">ie不同版本提示信息  ||  非ie浏览器提示</h1>
+    <h3 style="text-align: center;margin-top: 20px">切换ie版本查看弹出信息  ||  非ie浏览器提示</h3>
+</body>
+</html>

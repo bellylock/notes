@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>pass-localstorage</title>
+</head>
+<body>
+<a href="localstorage.html">返回到localstorage页面</a>
+<p class="getname"></p>
+<p class="getage"></p>
+<p class="getsex"></p>
+<div class="box"></div>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script>
+    var storage = window.localStorage;
+    var get = storage.getItem("list");
+    var array = [];
+    // array = JSON.parse(get);
+    if( get == null ){
+        array = []
+    }else{
+        array = JSON.parse(get);
+    }
+    for( var i = 0 ; i < array.length; i++){
+        $(".box").append(`
+            <p>${array[i].a}</p>
+            <p>${array[i].b}</p>
+            <p>${array[i].c}</p>
+        `)
+    }
+
+
+
+</script>
+</body>
+</html>

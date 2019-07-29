@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul{
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+        ul li{
+            position: relative;
+            list-style: none;
+            float: left;
+            width: 200px;
+            border: 1px solid #ccc;
+            margin: 0 15px 10px 0;
+            line-height: 30px;
+        }
+        ul li i{
+            display: inline-block;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            color: #fff;
+            border-width: 8px;
+            border-color: transparent #d41c44 #d41c44 transparent;
+            border-style: dashed solid solid dashed;
+        }
+        ul li span{
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background: url("images/right.png") no-repeat center;
+            background-size: 10px 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <ul>
+            <li>几十块了的规划<i><span></span></i></li>
+            <li>会尽快落实到韩国<i><span></span></i></li>
+            <li>狙击热加工<i><span></span></i></li>
+        </ul>
+    </div>
+</body>
+</html>

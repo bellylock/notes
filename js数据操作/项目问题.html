@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+    <a id="aaa">购物车 (0)</a>
+    <script>
+    //从上到下逐行执行
+    //常用的方法
+    //setItem(key,value)
+    //getItem(key)  获取value值
+    //clear() 清空localStorage
+    //removeItem(key) 清除对应的key值
+
+        //localStorage 存储的值有key 跟value
+        //key值是他存储的唯一标识符 唯一且不可重复
+        //如果重复往同一个key值存值 则会出现覆盖的情况
+        var localStorage = window.localStorage;
+        var array2 = localStorage.getItem("shopCar");
+        if(array2 != null){
+            //如果localStroage并没有数据 他的返回为null
+            array2 = JSON.parse(array2); //重新赋值
+            var test123 = JSON.parse(array2);
+            var DOMa = document.querySelector("#aaa");
+            DOMa.innerText = `购物车(${array2.length})`;
+        }
+
+        //setItem(key,value)  设置要存储的值
+        //getItem(key)      获取存储的值 返回值
+        //
+        //localStorage 可以存储字符串 数字 但是存储不了对象
+        // var obj = {
+        //     name: "",
+        //     age: 15,
+        // };
+
+        // var objString = JSON.stringify(obj);//转换为json 的字符串 有一个参数 参数为对象或者对象数组
+        // // console.log("这个是json字符串="+objString,"这个是原来的对象=",obj);
+        // // typeof() //返回参数上的类型是什么类型的值
+
+        // // console.log(typeof(objString),"------",typeof(obj));
+        // localStorage.setItem("demoObj",objString);
+        // var str = localStorage.getItem("demoObj");
+        // str = JSON.parse(str);//将json字符串转换为json对象
+        // //但是如果要转换的字符串不满足json格式 则会直接报错
+        // console.log(str, "这里显示的转换回来的对象")
+        // //js上的对象 在跟后台交互的时候 他的名称叫做JSON对象
+        // var array = [obj,obj];
+
+        // //json字符串 可以将对象和对象数组转换为json的字符串
+        // var arrayString = JSON.stringify(array);
+        // console.log("这里显示的是对象数组的字符串", arrayString,array);
+        // // localStorage.setItem("test",12);
+        // // localStorage.setItem("demo",58);
+        // localStorage.setItem("object",array);
+        // localStorage.setItem("objectArray",arrayString);
+        // var test = localStorage.getItem("object");
+        // var array1 = localStorage.getItem("objectArray");
+        // var a = JSON.parse(array1);
+        // console.log(a);
+        // localStorage.removeItem("test");//找到对应的key值 并将他移除数据
+        // localStorage.clear();
+    </script>
+</body>
+</html>

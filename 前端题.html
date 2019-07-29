@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>前端题</title>
+</head>
+<body>
+<div class="content"></div>
+    <script>
+        window.onload = function(){
+            // 题一：
+            var foo = 123;
+            function print(){
+                this.foo=234;
+                console.log(foo);
+            }
+            new print();  //123
+            // 考的是你函数的作用域的问题， 如果不作为构造函数，this是指向window对象的 ，
+            // 如果当成构造函数实例化一个对象后， this就是指向实例化后的那个对象的，
+            //  如果这里你直接执行 print(); 应该是打印 234的，
+            //  如果你实例化以后是需要指向 实例化的对象， 而你打印的是全局的 一个 变量，
+            //  所以是 123
+
+            // 题二：
+            function fun(n,o){
+                // console.log('n:',n);
+                console.log('o:',o);
+                return{
+                    //这个是闭包函数
+                    fun : function(m){
+                        return fun(m,n)
+                    }
+                }
+            }
+            var a=fun(0);   //o 没有定义，第一次是undefined ,n是0 ，a 是闭包函数fun的一个 引用，n这个参数被保存在内存中并没有销毁，这个时候n=0
+            var a1=a.fun(1);   //执行闭包函数，m=1,n=0并马上执行一次fun函数，打印出 第一个参数是 1， 第二个参数是0
+            var a2=a.fun(2); //同理 再次执行闭包函数，m=2,n=0, 你的值并没有被改变，打印出 第一个参数是 2， 第二个参数是0
+            var a3=a.fun(3); //同理 再次执行闭包函数，m=3,n=0, 你的值并没有被改变，打印出 第一个参数是 2， 第二个参数是0
+
+            // 通过分析， 打印出的应该是第二个参数为o 的值一直为0  （（undefined，0，0，0）
+            // 不管后面是a.fun(4);  a.fun(5);...  都只是m在变化，n的值并没有发生变化
+
+            console.log('----------------------');
+            var b=fun(0).fun(1).fun(2).fun(3);
+            // fun(0) 执行的时候也是返回闭包函数， o 没有定义，第一次是undefined，n是0 ，fun(0)是闭包函数fun的一个 引用
+            //fun(0).fun(1) 执行闭包函数， 和上面是一样的 m=1,n=0并马上执行一次fun函数 ，打印出 第一个参数是 n:1， 第二个参数是o:0
+            //fun(0).fun(1).fun(2)  //执行闭包函数， 这个时候 下面的m = 2, n=1 ,打印出 n:2,o:1 ,注意这里 ，n的值其实是 函数  fun(m,n) 传的 第一个 参数，而且内存没释放，记住了 这个值
+            //fun(0).fun(1).fun(2).fun(3) //同理执行闭包， 这个时候 下面的m = 3, n=2 , 执行的时候打印的是 n:3,n其实就是打印函数里m的传参，o:2
+            // 通过分析， 打印出的应该是第二个参数为o 的值是递增的 （undefined,0,1,2） ，打印的就是前面的参数m值
+
+            console.log('----------------------');
+            var c=fun(0).fun(1); //和前面是一样的， 执行闭包函数， 和上面是一样的 m=1,n=0并马上执行一次fun函数 ，打印出 第一个参数是 n:1， 第二个参数是o:0
+            c.fun(2);   //执行闭包函数， 这个时候 下面的m = 2, n=1  ，打印 o:1
+            c.fun(3); // 执行闭包函数， 这个时候 下面的m = 3, n=1  打印 o:1
+
+            // 通过分析， 打印出的应该是第二个参数为o 的值一直为0  （（undefined，0，1，1）
+
+            //  不管后面是c.fun(4);  c.fun(5);...  都只是m在变化，n的值并没有发生变化
+
+            // 题二延伸闭包
+            function add(){
+                var num= 100; // 这里改为局部变量;
+                return function(){
+                    num++;
+                    console.log(num);
+                }
+            };
+            var f = add();   //只在这里初始化一次，后边调用的时候执行的是里边的匿名函数
+            f();   //101
+            f();  //102
+            f();  //103
+
+
+            //闭包
+            function Person(){
+                var name = "howard";
+                return {
+                    getName:function(){
+                        return name
+                    },
+                    setName:function( newName ){
+                        name = newName
+                    }
+                }
+            }
+            var blackman = function(){};
+            blackman.prototype = new Person();
+            var p = new blackman();
+            p.getName();
+
+
+            // 题三：
+            function test(x,y,z){
+                console.log(test.length);                    //3
+                console.log(arguments.length);              //2
+                console.log(arguments.callee === test);     //true
+                console.log(arguments[2]);                  //undefined
+            }
+            test(10,20);
+
+            // 阶乘
+            var sum = function (n) {
+                if (1 == n) {
+                    return 1;
+                } else {
+                    return n * arguments.callee(n - 1);
+                }
+            }
+            sum(4);      //  ==>  4*3*2+1   ===  24
+
+            // 题四：
+            var a = 10;
+            a.pro = 10;   //  undefined
+            console.log(a.pro + a);   //  结果： NaN
+
+            var s = 'hello';
+            s.pro = 'world';   // undefined
+            console.log(s.pro + s);    // 结果：undefinedhello
+
+
+            // 题五：
+            var f = 1;
+            if( !f ){
+                var a = 10
+            }
+            function fn(){
+                var b = 20;
+                c = 30
+            }
+            fn();    // undefined
+            console.log(a);   // undefined
+            console.log(b);   // b is not defined
+            console.log(c);  // 30  如果之前不执行 fn()这个方法的话，c is not defined，如果执行了fun()之后再执行 console.log(c) 结果是 30
+
+            //题六
+            var d = 10;
+            function s(){
+                console.log(d)
+            }
+            var a = s();  // 10
+            alert(a);     // undefined
+
+            // 题七
+            var length = 10;
+            function fn(){
+                console.log(this.length)
+            }
+            var obj = {
+                length:5,
+                method:function(fn){
+                    fn();
+                    arguments[0]();
+                    console.log(this)
+                }
+            }
+            obj.method(fn,1)     // 10 , 2
+            //答案：10，2，第一次输出10应该没有什么异议，这里的this指向window，
+            // 第二个调用arguments[0]()相当于执行arguments调用方法，this指向arguments，
+            // 而这里传了两个参数，故输出arguments长度为2。
+
+
+            //题八
+            function show(n) {
+                var arr = [];
+                return (function fn() {
+                    arr.unshift(n);
+                    n--;
+                    if (n != 0) {
+                        fn();
+                    }
+                    return arr;
+                })()
+            }
+            show(5);  //[1,2,3,4,5]
+
+            //题九   apply 和 call 的写法    apply和call均表示继承
+            function Cat(name,color){
+                this.name = name;
+                this.color = color
+            }
+            var obj = {};
+            Cat.apply(obj,['belly','orange']);    //apply 传值 传一个数组对象
+            Cat.call(obj,'belly','orange');       //call 传值 一个一个传
+            obj.name   // belly
+
+            //题 10
+            var m = new Map();
+            m.set('name','howard');
+            m
+            for( let [k,v] of m){
+                console.log(k + '--' + v)
+            }
+
+            //题11
+            function fn(a){
+                console.log(a);
+                var a = 2;
+                function a(){};
+                console.log(a)
+            }
+            fn(1)     //ƒ a(){}  , 2
+            //答案：f a() { }  2
+            //解析：我们知道预解析阶段，变量声明和函数声明会提前，且变量名和函数名同名时，
+            // 函数优先级高于变量，会覆盖变量，因此第一个输出的是f a(){ }，继续执行，会执行a=2，
+            // 再输出的时候就会输出2，不理解的同学百度一下变量提升和函数提升
+
+            //题12
+            var a = 1 < 2 < 1 < 1 ? 3 : 4;
+            var b = 3 < 2 < 1 < 1 ? 2 : 1;
+            console.log(a);   // 3
+            console.log(b);   // 1
+            //答案：3  1
+            //解析：大于小于运算符优先级高于三目运算符，且从左往右执行
+            //a的执行顺序如下：
+            // 第一步：1 < 2 为true
+            // 第二步：true < 1，这时true会转为1，false会转为0进行比较，因此这一步结果为false
+            // 第三步：fasle < 1，结果为true，因此a的结果是3
+            // b的结果同理于a，不再写详细计算步骤。
+
+            //题13
+            //已知如下数组
+            //编写一个程序将数组扁平化去除其中重复的部分数据，最终得到一个升序且不重复的数组
+            var arr = [ [11, 22, 22], [13, 14, 15, 15], [16, 17, 18, 19, [11, 12, [12, 13, [14] ] ] ], 12];
+            var newArray = Array.from(new Set(arr.flat(Infinity))).sort((a,b) => a-b);
+            console.log(newArray);
+
+            //题13-1  数组排序  升序
+            var array = [1,5,9,10,20,36];
+            var min;
+            for( var i = 0; i < array.length; i++){
+                for( var j = i; j < array.length ; j++){
+                    if(array[i] > array[j]){
+                        min = array[j];
+                        array[j] = array[i];
+                        array[i] = min
+                    }
+                }
+            }
+            console.log(array);
+
+            //题13-2  数组排序  升序
+            var array = [1,5,9,10,20,36];
+            var newArr = array.sort(function(a,b){
+                return a-b
+            });
+            console.log(newArr);
+
+            //题13-3  数组排序  降序
+            var array = [1,5,9,10,20,36];
+            var newArrs = array.sort(function(a,b){
+                return b-a
+            });
+            console.log(newArrs);
+
+            //题14
+            function Foo(){
+                getName = function(){
+                    console.log(1);
+                    return this
+                }
+            }
+            Foo.getName = function(){
+                console.log(2)
+            }
+            Foo.prototype.getName = function(){
+                console.log(4)
+            }
+            function getName(){
+                console.log(5)
+            }
+            // 输出下面的结果
+            Foo.getName();  // 2
+            getName();     // 4
+            Foo().getName();  // 1
+            getName();     // 1
+            new Foo.getName();  // 2
+            new Foo().getName();  // 3
+            new new Foo().getName();  // 3
+            // 分析：
+            //第一问
+            //Foo.getName 自然是访问 Foo函数上存储的静态属性 ，是2
+            //第二问
+            //函数表达式覆盖函数声明，因此调用的是被覆盖后的getName函数，是4
+            //第三问
+            //先执行了Foo函数，然后调用Foo函数的返回值对象的getName属性函数。
+            //Foo函数的第一句getName = function(){ console.log(1) };是一句函数赋值语句，注意它没有var声明，
+            //所以先向当前Foo函数作用域内寻找getName变量，没有。再向当前函数作用上层，即外层作用域内寻找是否含有getName变量，
+            //也就是第二问中的alert（4）函数，将此变量的值赋值为function(){ console.log(1) }。
+            //此处实际上是将外层作用域内的getName函数修改了。
+            //之后Foo函数的返回值是this，此处this指向window对象，所以是1
+            //第四问
+            //直接调用getName函数，相当于window.getName(),因为这个变量已经被Foo函数执行时修改了，所以结果与第三问相同，是1，
+            //也就是说Foo执行后把全局的getName函数给重写了一次，所以结果就是Foo（）执行重写的那个getName函数。
+            //第五问
+            //new Foo.getName（）；此处考察的是js的运算符优先级问题，因为点运算符的优先级高于new操作，遂相当于：
+            //new （Foo.getName（））{}；所以实际上将getName函数作为了构造函数来执行，所以弹出2
+            //第六问
+            //new Foo（）.getName（），根据运算符优先级，实际执行为（new Foo（））.getName（）
+            //所以先执行Foo函数，Foo此时作为构造函数却有返回值，返回的是this，
+            //而this在构造函数中本来就代表当前实例化对象，所以最终Foo函数返回实例化对象。
+            //之后调用实例化对象的getName函数，因为在Foo构造函数中没有为实例化对象添加任何属性，
+            //所以当前对象的原型对象（prototype）中寻找getName，找到了。所以输出3
+            //第七问
+            //new new Foo（）.getName（）；同样是运算符优先级问题。最终实际执行为：
+            //new（（new Foo（））.getName）（）；先初始化Foo的实例化对象，然后将其原型上的getName函数作为构造函数再次new。结果为3
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

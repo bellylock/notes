@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://wximg.gtimg.com/shake_tv/include/js/lib/jquery.2.1.1.min.js"></script>
+</head>
+<body>
+<style type="text/css">
+    span {
+        font-size: 15px;
+        border: 1px solid #dc0201;
+        background-color: pink;
+        display: inline-block;
+    }
+    em {
+        font-size: 16px;
+        font-style: normal;
+        background-color: green;
+        display: inline-block;
+        line-height: 26px;
+        padding: 0 6px;
+        cursor: pointer;
+    }
+    .identify {
+        background-color: #00c1de;
+        font-size: 16px;
+        color: #333;
+        display: inline-block;
+        width: 100px;
+        text-align: center;
+        line-height: 28px;
+        cursor: pointer;
+        letter-spacing: 10px;
+    }
+</style>
+<div class="content">
+    <span>验证码</span>
+
+    <em class="asd">
+        <em class="em0">bnJK1234</em>
+        <em class="em1"></em>
+        <em class="em2"></em>
+        <em class="em3"></em>
+        <em class="em4"></em>
+    </em>
+    <div class="identify">qw56</div>
+    <p style="width: 24px;line-height: 24px;font-size: 16px;color: red;text-align: center;">你说说你为啥要这个样的</p>
+</div>
+<script type="text/javascript">
+    //生产随机数
+    // var uu=Math.floor(5.36) //向下取整 结果为5
+    // var uu=Math.floor(5.88) //结果为5
+    // Math.ceil(5.33) //向上取整，结果为6
+    // Math.round(5.55) //四舍五入 结果为6
+    // math.round(5.22) //结果为5
+    // var aaa = Math.floor(Math.random()*36);    获取0-35的任意整数
+
+    $(".asd").click(function () {
+        var sd1 = Math.random() * 10;
+        var sd2 = Math.random() * 100;
+        var sd3 = Math.random() * 1000;
+        var sd4 = Math.random() * 10000;
+
+        var we1 = Math.floor(sd1) * 1;
+        var we2 = Math.floor(sd2) * 1;
+        var we3 = Math.floor(sd3) * 1;
+        var we4 = Math.floor(sd4) * 1;
+        $(".em0").empty();
+        $(".em1").text(we1);
+        $(".em2").text(we2);
+        $(".em3").text(we3);
+        $(".em4").text(we4);
+    });
+
+    $(".identify").click(function () {
+        // var code = $(this).innerText;
+        var code = "";
+        var codeLength = 4;//验证码的长度
+        var num = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+            's', 't', 'u', 'v', 'w', 'x', 'y', 'z');//随机数
+        for (var i = 0; i < codeLength; i++) {
+            //循环操作
+            var index = Math.floor(Math.random() * 36);//取得随机数的索引（0~35）
+            code += num[index];//根据索引取得随机数加到code上
+            $(this).text(code)
+        }
+    });
+
+    var ran = Math.random();
+    var num = ran * 36;
+    console.log(ran + "--" + num)
+
+
+</script>
+</body>
+</html>

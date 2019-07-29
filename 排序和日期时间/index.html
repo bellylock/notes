@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body onload="time3()">
+    <div class="box"></div>
+    <br>
+    <div class="bar"></div>
+    <br>
+    <div class="cd"></div>
+    <hr>
+    <div id="show">show</div>
+    <hr>
+    <div id="time1"></div>
+    <hr>
+    <div id="time2"></div>
+    <hr>
+    <div id="time3"></div>
+
+    <script type="text/javascript">
+
+        //实时时间1
+        function time1(){
+            var myDate = new Date();
+            //获取当前年
+            var year = myDate.getFullYear();
+            //获取当前月
+            var month = myDate.getMonth() + 1;
+            //获取当前日
+            var date = myDate.getDate();
+            var h = myDate.getHours();       //获取当前小时数(0-23)
+            var m = myDate.getMinutes();     //获取当前分钟数(0-59)
+            var s = myDate.getSeconds();
+            if( s < 10){
+                s = "0" + s
+            }
+
+            var now = year + '-' + month + "-" + date + " " + h + ':' + m + ":" + s;
+            // alert(now);
+
+            $("#time1").text( "time1: 现在日期和时间：" + now);
+            // document.getElementById("time1").innerHTML = "time1:" + now;
+        }
+        setInterval(function(){time1()},1000);
+
+        // 实时时间2
+        function time2(){
+            var a = new Date();
+            var b = a.toLocaleTimeString();
+            var c = a.toLocaleDateString();
+            document.getElementById("time2").innerHTML ="time2: " + c+"&nbsp;"+b;
+        }
+        setInterval(function() {time2()},1000);
+
+        // 实时时间3   该方法必须在body上写onload = time3() 否则不会生效
+        function time3(){
+            var myDate = new Date();
+            //获取当前年
+            var year = myDate.getFullYear();
+            //获取当前月
+            var month = myDate.getMonth() + 1;
+            //获取当前日
+            var date = myDate.getDate();
+            var h = myDate.getHours();       //获取当前小时数(0-23)
+            var m = myDate.getMinutes();     //获取当前分钟数(0-59)
+            var s = myDate.getSeconds();
+            if( s < 10){
+                s = "0" + s
+            }
+
+            var now = year + '-' + month + "-" + date + " " + h + ':' + m + ":" + s;
+            // alert(now);
+
+            $("#time3").text("time3: " + "现在日期和时间：" + now);
+            // document.getElementById("time3").innerHTML = now;
+            setTimeout('time3()',1000);
+            // setTimeout(function(){time3()},1000)
+        }
+
+        //从小到大排序
+        // var array = [1, -534, 123, -346, 567, -456, -2, 3, -5, -33, -44, 1222, -435];
+        // for (let i = 0; i < array.length; i++) {
+        //     for (let j = i + 1; j < array.length; j++) {
+        //         if (array[i] > array[j]) {
+        //             let temp = array[i];
+        //             array[i] = array[j];
+        //             array[j] = temp;
+        //         }
+        //     }
+        // }
+        var array = [1,2,3,-5,-6,5,9,63,6,6];
+        for( var i = 0; i < array.length; i++){
+            for( let j = i + 1; j < array.length; j++ ){
+                if( array[i] > array[j]){
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+        $(".box").text(array);
+
+        //从大到小排序
+        var arr = [0, 2, 8, 6, 3, 4, 7, 5, 9];
+        for (var i = 0; i < arr.length; i++) {
+            for (var j = i + 1; j < arr.length; j++) {
+                if (arr[i] < arr[j]) {
+                    var tem = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = tem;
+                }
+            }
+        }
+        $(".bar").text(arr);
+
+        var a = [1, 2, 3, 4];
+        var b = [2, 4, 6, 8];
+        var c = [];
+        c = c.concat(a,b);  //concat 是一个合并的函数
+        $(".cd").text(c);
+
+        var str="Helloworld!";
+        var a = str.substring(3,6);
+        document.getElementById("show").innerHTML = str.substring(3,6);      //stringObject.substring(start,stop)  取两者之间
+        // document.write(str.substr(3,6))           //stringObject.substr(start,length)    取多少个
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
