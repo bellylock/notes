@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>cookie菜鸟教程</title>
+    <link rel="shortcut icon" href="#" />
+    <style>
+        #check,#btn,#get{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h3>设置cookie，获取cookie，删除cookie要有服务器环境， 在laragon环境下测试</h3>
+    <p><a id="check">查看登录状态</a></p>
+    <button id="btn">删除cookie</button>
+    <p id="get">点击获取cookie-username: <span id="user"></span></p>
+</body>
+<script>
+    window.onload = function() {
+        checkCookie();
+        document.getElementById("btn").onclick = function () {
+            delCookie()
+        };
+        document.getElementById("check").onclick = function(){
+            checkCookie();
+        };
+        document.getElementById("get").onclick = function(){
+            var username =  getCookie("username");
+            document.getElementById('user').innerHTML = username
+        };
+
+        //设置cookie
+        function setCookie(cname,cvalue,exdays){
+            var d = new Date();
+            d.setTime(d.getTime()+(exdays*24*60*60*1000));
+            var expires = "expires="+d.toGMTString();
+            document.cookie = cname+"="+cvalue+"; "+expires;
+        }
+        //获取cookie
+        function getCookie(cname){
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+            }
+            return "";
+        }
+        function checkCookie(){
+            var user=getCookie("username");
+            if (user!=""){
+                alert("欢迎 " + user + " 再次访问");
+            }
+            else {
+                user = prompt("请输入你的名字:","");
+                if (user!="" && user!=null){
+                    setCookie("username",user,30);
+                }
+            }
+        }
+        // 删除cookie
+        function delCookie(username) {
+            setCookie('username', '', -1);
+            var user=getCookie("username");
+            alert(user)
+        }
+    }
+
+
+</script>
+
+</html>
